@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AC09CB30-0880-4875-A182-3428302E26A8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{726EC05D-5F1A-402E-9AC1-48EBDE537DE8}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CreateDataDictionary</RootNamespace>
-    <AssemblyName>CreateDataDictionary</AssemblyName>
+    <RootNamespace>CreateDataDictionary.Business</RootNamespace>
+    <AssemblyName>CreateDataDictionary.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,17 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Common\SqlQuery.cs" />
+    <Compile Include="Interfaces\IBaseDatabaseConnection.cs" />
+    <Compile Include="Models\TableColumnInfoRaw.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CreateDataDictionary.Business\CreateDataDictionary.Business.csproj">
-      <Project>{726ec05d-5f1a-402e-9ac1-48ebde537de8}</Project>
-      <Name>CreateDataDictionary.Business</Name>
-    </ProjectReference>
+    <Compile Include="Services\BaseDatabaseConnection.cs" />
+    <Compile Include="Services\GetDbTableColumnInfoService.cs" />
+    <Compile Include="Interfaces\IGetDbTableColumnInfoService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
