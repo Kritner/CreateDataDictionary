@@ -47,9 +47,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CreateDataDictionary.Business\CreateDataDictionary.Business.csproj">
       <Project>{726ec05d-5f1a-402e-9ac1-48ebde537de8}</Project>
       <Name>CreateDataDictionary.Business</Name>
