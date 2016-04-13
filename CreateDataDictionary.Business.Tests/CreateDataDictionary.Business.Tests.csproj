@@ -65,6 +65,7 @@
     <Compile Include="Services\DataDictionaryTableExcluderRegexTests.cs" />
     <Compile Include="Services\GetDbTableColumnInfoServiceTests.cs" />
     <Compile Include="Services\DataDictionaryExclusionRulesServiceTests.cs" />
+    <Compile Include="Services\DataDictionaryCreationServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CreateDataDictionary.Business\CreateDataDictionary.Business.csproj">

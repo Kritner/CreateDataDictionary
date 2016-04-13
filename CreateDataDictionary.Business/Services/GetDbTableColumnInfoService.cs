@@ -13,7 +13,7 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// Get the table, table description, column, column description, key, and type information from the database
     /// </summary>
-    public class GetDbTableColumnInfoService : IGetDbTableColumnInfoService
+    public class GetDbTableColumnInfoService : IGetDbTableColumnInfo
     {
 
         #region Private
