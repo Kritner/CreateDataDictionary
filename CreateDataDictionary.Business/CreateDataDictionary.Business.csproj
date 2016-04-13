@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="Common\SqlQuery.cs" />
     <Compile Include="Interfaces\IBaseDatabaseConnection.cs" />
+    <Compile Include="Interfaces\IDataDictionaryTableExcluder.cs" />
     <Compile Include="Models\TableColumnInfoRaw.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseDatabaseConnection.cs" />
+    <Compile Include="Services\DataDictionaryTableExcluderList.cs" />
+    <Compile Include="Services\DataDictionaryTableExcluderRegex.cs" />
     <Compile Include="Services\GetDbTableColumnInfoService.cs" />
     <Compile Include="Interfaces\IGetDbTableColumnInfoService.cs" />
   </ItemGroup>

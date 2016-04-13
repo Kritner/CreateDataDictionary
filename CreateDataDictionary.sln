@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDataDictionary", "Cre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDataDictionary.Business", "CreateDataDictionary.Business\CreateDataDictionary.Business.csproj", "{726EC05D-5F1A-402E-9AC1-48EBDE537DE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDataDictionary.Business.Tests", "CreateDataDictionary.Business.Tests\CreateDataDictionary.Business.Tests.csproj", "{58454CF1-63C7-4F2E-AC95-1CA3BB253E12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{726EC05D-5F1A-402E-9AC1-48EBDE537DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{726EC05D-5F1A-402E-9AC1-48EBDE537DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{726EC05D-5F1A-402E-9AC1-48EBDE537DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58454CF1-63C7-4F2E-AC95-1CA3BB253E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58454CF1-63C7-4F2E-AC95-1CA3BB253E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58454CF1-63C7-4F2E-AC95-1CA3BB253E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58454CF1-63C7-4F2E-AC95-1CA3BB253E12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
