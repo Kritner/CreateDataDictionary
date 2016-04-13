@@ -11,7 +11,7 @@ namespace CreateDataDictionary.Business.Interfaces
     /// <summary>
     /// Interface a means of excluding tables from the data dictionary
     /// </summary>
-    interface IDataDictionaryTableExcluder
+    public interface IDataDictionaryTableExcluder
     {
 
         /// <summary>

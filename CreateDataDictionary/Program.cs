@@ -11,11 +11,7 @@ namespace CreateDataDictionary
     {
         static void Main(string[] args)
         {
-            GetDbTableColumnInfoService service = new GetDbTableColumnInfoService(
-                new BaseDatabaseConnection()
-            );
-
-            var results = service.GetTableColumnInformation();
+            
             Console.WriteLine("");
         }
     }
