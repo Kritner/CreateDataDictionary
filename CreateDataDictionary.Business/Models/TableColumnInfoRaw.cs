@@ -12,7 +12,8 @@ namespace CreateDataDictionary.Business.Models
     /// </summary>
     public class TableColumnInfoRaw
     {
-        
+
+        #region Properties
         /// <summary>
         /// The table's name - should always be provided
         /// </summary>
@@ -62,7 +63,9 @@ namespace CreateDataDictionary.Business.Models
         /// When the table was last modified
         /// </summary>
         public DateTime LastModified { get; private set; }
+        #endregion Properties
 
+        #region ctor
         /// <summary>
         /// Constructor
         /// </summary>
@@ -113,5 +116,6 @@ namespace CreateDataDictionary.Business.Models
             KeySequence = keySequence;
             LastModified = lastModified;
         }
+        #endregion ctor
     }
 }

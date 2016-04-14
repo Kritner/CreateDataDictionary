@@ -45,12 +45,14 @@
     <Compile Include="Interfaces\IBaseDatabaseConnection.cs" />
     <Compile Include="Interfaces\IDataDictionaryExclusionRules.cs" />
     <Compile Include="Interfaces\IDataDictionaryTableExcluder.cs" />
+    <Compile Include="Models\TableColumnInfo.cs" />
     <Compile Include="Models\TableInfo.cs" />
     <Compile Include="Models\TableColumnInfoRaw.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseDatabaseConnection.cs" />
     <Compile Include="Services\DataDictionaryCreationService.cs" />
     <Compile Include="Services\DataDictionaryExclusionRulesService.cs" />
+    <Compile Include="Services\DataDictionaryObjectCreatorService.cs" />
     <Compile Include="Services\DataDictionaryTableExcluderList.cs" />
     <Compile Include="Services\DataDictionaryTableExcluderRegex.cs" />
     <Compile Include="Services\GetDbTableColumnInfoService.cs" />
