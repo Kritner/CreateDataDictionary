@@ -169,6 +169,32 @@ namespace CreateDataDictionary.Business.Tests.Models
             Assert.AreEqual(_keySequence, _biz.KeySequence, nameof(_biz.KeySequence));
 
             Assert.AreEqual(_tableInfo, _biz.Table, nameof(_biz.Table));
+
+            Assert.AreEqual(string.Format("Max Length: {0}", _columnLength), _biz.AdditionalInfoFormatted, nameof(_biz.KeySequence));
+            Assert.AreEqual(true, _biz.PartOfKeyFormatted, nameof(_biz.PartOfKeyFormatted));
+        }
+
+        /// <summary>
+        /// AdditionalInfoFormatted returns empty string when no length is present
+        /// PartOfKeyFormatted returns false when KeySeq is null
+        /// </summary>
+        [TestMethod]
+        public void TableColumnInfo_Property_Default()
+        {
+            // Arrange / Act
+            _biz = new TableColumnInfo(
+                _columnName,
+                _columnDescription,
+                _columnDataType,
+                null,
+                _defaultValue,
+                _allowsNulls,
+                null
+            );
+
+            // Assert
+            Assert.AreEqual(string.Empty, _biz.AdditionalInfoFormatted, nameof(_biz.AdditionalInfoFormatted));
+            Assert.AreEqual(false, _biz.PartOfKeyFormatted, nameof(_biz.PartOfKeyFormatted));
         }
         #endregion Public methods/tests
 
