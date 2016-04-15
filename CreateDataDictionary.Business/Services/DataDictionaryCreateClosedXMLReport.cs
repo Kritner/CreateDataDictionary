@@ -37,7 +37,11 @@ namespace CreateDataDictionary.Business.Services
             _data = dataDictionaryData.ToList();
 
             XLWorkbook workbook = CreateWorkbook();
-            workbook = CreateWorkbookContents(workbook);
+
+            MissingDescriptionsSheetCreator missingDescriptions = new MissingDescriptionsSheetCreator();
+            missingDescriptions.CreateSheetInWorkbook(ref workbook, _data);
+
+            workbook = CreateWorksheetContents(workbook);
 
             return workbook;
         }
@@ -71,6 +75,7 @@ namespace CreateDataDictionary.Business.Services
             string rangeBegin = XLHelper.GetColumnLetterFromNumber(1) + currentRow;
             string rangeEnd = XLHelper.GetColumnLetterFromNumber(lastColumn) + currentRow;
             IXLRange range = worksheet.Range(rangeBegin, rangeEnd);
+            currentRow++;
             return range;
         }
 
@@ -116,7 +121,7 @@ namespace CreateDataDictionary.Business.Services
         /// </summary>
         /// <param name="workbook">The workbook to use</param>
         /// <returns>The workbook</returns>
-        private XLWorkbook CreateWorkbookContents(XLWorkbook workbook)
+        private XLWorkbook CreateWorksheetContents(XLWorkbook workbook)
         {
             _data.ForEach(table => CreateSheetForTable(ref workbook, table));
 
@@ -137,6 +142,8 @@ namespace CreateDataDictionary.Business.Services
 
             CreateHeading(ref worksheet, ref currentRow, lastColumn);
             CreateSubHeading(ref worksheet, ref currentRow, lastColumn);
+
+            currentRow++;
 
             // Table Content
             CreateTableNameRow(ref worksheet, ref table, ref currentRow, lastColumn);
@@ -165,8 +172,6 @@ namespace CreateDataDictionary.Business.Services
             headingRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.CenterContinuous;
 
             headingRow.FirstCell().Value = "Data Dictionary";
-
-            currentRow++;
         }
 
         /// <summary>
@@ -182,9 +187,6 @@ namespace CreateDataDictionary.Business.Services
             subHeadingRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.CenterContinuous;
 
             subHeadingRow.FirstCell().Value = string.Format("Generated on {0}", DateTime.Now);
-
-            currentRow++;
-            currentRow++;
         }
 
         /// <summary>
@@ -204,8 +206,6 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, 1).Style.Fill.SetBackgroundColor(_headingColor);
             
             row.Cell(1, 2).Value = table.TableName;
-            
-            currentRow++;
         }
 
         /// <summary>
@@ -225,8 +225,6 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, 1).Style.Fill.SetBackgroundColor(_headingColor);
 
             row.Cell(1, 2).Value = table.TableDescription;
-
-            currentRow++;
         }
         
         /// <summary>
@@ -247,8 +245,6 @@ namespace CreateDataDictionary.Business.Services
 
             row.Cell(1, 2).Value = table.LastModified;
             row.Cell(1, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-
-            currentRow++;
         }
 
         /// <summary>
@@ -275,8 +271,6 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, column++).Value = "Default Value";
             row.Cell(1, column++).Value = "Allows Nulls?";
             row.Cell(1, column++).Value = "Part of Key?";
-
-            currentRow++;
         }
 
         /// <summary>
@@ -320,8 +314,6 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, currentColumn++).Value = column.DefaultValue;
             row.Cell(1, currentColumn++).Value = column.AllowsNulls;
             row.Cell(1, currentColumn++).Value = column.PartOfKeyFormatted;
-
-            currentRow++;
         }
         #endregion Private methods
     }
