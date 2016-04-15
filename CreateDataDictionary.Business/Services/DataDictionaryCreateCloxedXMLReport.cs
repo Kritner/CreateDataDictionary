@@ -14,10 +14,11 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class DataDictionaryCreateCloxedXMLReport : IDataDictionaryReportGenerator
     {
-
+        
         #region private
         private List<TableInfo> _data;
         private string _fileName;
+        private XLColor _headingColor = XLColor.FromArgb(153, 204, 255);
         #endregion private
 
         #region Public methods
@@ -59,6 +60,32 @@ namespace CreateDataDictionary.Business.Services
             string rangeEnd = XLHelper.GetColumnLetterFromNumber(lastColumn) + currentRow;
             IXLRange range = worksheet.Range(rangeBegin, rangeEnd);
             return range;
+        }
+
+        /// <summary>
+        /// Apply formatting to the worksheet
+        /// </summary>
+        /// <param name="worksheet"></param>
+        private void FormatWorksheet(ref IXLWorksheet worksheet)
+        {
+            worksheet.ColumnsUsed().AdjustToContents();
+            worksheet.Column(2).Width = 30;
+            worksheet.Column(2).Style.Alignment.WrapText = true;
+        }
+
+        /// <summary>
+        /// Apply shading to every other data row
+        /// </summary>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="startTableDataRow">The table start row</param>
+        /// <param name="endTableDataRow">The table end row</param>
+        /// <param name="lastColumn">The last column</param>
+        private void ApplyShadingEveryOtherRow(ref IXLWorksheet worksheet, int startTableDataRow, int endTableDataRow, int lastColumn)
+        {
+            string rangeBegin = XLHelper.GetColumnLetterFromNumber(1) + startTableDataRow;
+            string rangeEnd = XLHelper.GetColumnLetterFromNumber(lastColumn) + endTableDataRow;
+            IXLRange range = worksheet.Range(rangeBegin, rangeEnd);
+            range.AddConditionalFormat().WhenIsTrue("=mod(row(),2)=0").Fill.SetBackgroundColor(XLColor.LightGray);
         }
         #endregion Report Helpers
 
@@ -102,11 +129,15 @@ namespace CreateDataDictionary.Business.Services
             // Table Content
             CreateTableNameRow(ref worksheet, ref table, ref currentRow, lastColumn);
             CreateTableDescriptionRow(ref worksheet, ref table, ref currentRow, lastColumn);
-            // Table description
+            CreateTableLastModifiedRow(ref worksheet, ref table, ref currentRow, lastColumn);
+
+            currentRow++;
 
             // Column Content
-            // Column Table heading
-            // Column table columns
+            CreateTableColumnsHeadingRow(ref worksheet, ref currentRow, lastColumn);
+            CreateTableColumnsData(ref worksheet, ref table, ref currentRow, lastColumn);
+
+            FormatWorksheet(ref worksheet);
         }
 
         /// <summary>
@@ -147,16 +178,19 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Row for table name
         /// </summary>
-        /// <param name="worksheet"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="lastColumn"></param>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="table">The table being printed</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
         private void CreateTableNameRow(ref IXLWorksheet worksheet, ref TableInfo table, ref int currentRow, int lastColumn)
         {
             IXLRange row = CreateRow(ref worksheet, ref currentRow, lastColumn);
 
             row.Cell(1, 1).Value = "Table Name:";
             row.Cell(1, 1).Style.Font.Bold = true;
-
+            row.Cell(1, 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            row.Cell(1, 1).Style.Fill.SetBackgroundColor(_headingColor);
+            
             row.Cell(1, 2).Value = table.TableName;
             
             currentRow++;
@@ -165,17 +199,115 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Row for table description
         /// </summary>
-        /// <param name="worksheet"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="lastColumn"></param>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="table">The table being printed</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
         private void CreateTableDescriptionRow(ref IXLWorksheet worksheet, ref TableInfo table, ref int currentRow, int lastColumn)
         {
             IXLRange row = CreateRow(ref worksheet, ref currentRow, lastColumn);
 
             row.Cell(1, 1).Value = "Table Description:";
             row.Cell(1, 1).Style.Font.Bold = true;
+            row.Cell(1, 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            row.Cell(1, 1).Style.Fill.SetBackgroundColor(_headingColor);
 
             row.Cell(1, 2).Value = table.TableDescription;
+
+            currentRow++;
+        }
+        
+        /// <summary>
+        /// Row for table last modified row
+        /// </summary>
+        /// <param name="workbook"></param>
+        /// <param name="table"></param>
+        /// <param name="currentRow"></param>
+        /// <param name="lastColumn"></param>
+        private void CreateTableLastModifiedRow(ref IXLWorksheet worksheet, ref TableInfo table, ref int currentRow, int lastColumn)
+        {
+            IXLRange row = CreateRow(ref worksheet, ref currentRow, lastColumn);
+
+            row.Cell(1, 1).Value = "Table Last Modified:";
+            row.Cell(1, 1).Style.Font.Bold = true;
+            row.Cell(1, 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            row.Cell(1, 1).Style.Fill.SetBackgroundColor(_headingColor);
+
+            row.Cell(1, 2).Value = table.LastModified;
+            row.Cell(1, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+
+            currentRow++;
+        }
+
+        /// <summary>
+        /// Create heading row for columns table
+        /// </summary>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
+        private void CreateTableColumnsHeadingRow(ref IXLWorksheet worksheet, ref int currentRow, int lastColumn)
+        {
+            IXLRange row = CreateRow(ref worksheet, ref currentRow, lastColumn);
+            row.Style.Font.Bold = true;
+            row.Style.Alignment.WrapText = true;
+
+            row.Style.Border.InsideBorder = XLBorderStyleValues.Medium;
+            row.Style.Border.OutsideBorder = XLBorderStyleValues.Medium;
+            row.Style.Fill.SetBackgroundColor(_headingColor);
+
+            int column = 1;
+            row.Cell(1, column++).Value = "Column Name";
+            row.Cell(1, column++).Value = "Description";
+            row.Cell(1, column++).Value = "Type";
+            row.Cell(1, column++).Value = "Additional Type Information";
+            row.Cell(1, column++).Value = "Default Value";
+            row.Cell(1, column++).Value = "Allows Nulls?";
+            row.Cell(1, column++).Value = "Part of Key?";
+
+            currentRow++;
+        }
+
+        /// <summary>
+        /// Create Columns table data
+        /// </summary>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="table">The current DB table</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
+        private void CreateTableColumnsData(ref IXLWorksheet worksheet, ref TableInfo table, ref int currentRow, int lastColumn)
+        {
+            int startTableDataRow = currentRow;
+
+            foreach (TableColumnInfo column in table.TableColumns)
+                CreateTableColumnRow(ref worksheet, column, ref currentRow, lastColumn);
+
+            int endTableDataRow = currentRow-1;
+
+            ApplyShadingEveryOtherRow(ref worksheet, startTableDataRow, endTableDataRow, lastColumn);
+        }
+
+        /// <summary>
+        /// Create column row
+        /// </summary>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="table">The current DB table column</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
+        private void CreateTableColumnRow(ref IXLWorksheet worksheet, TableColumnInfo column, ref int currentRow, int lastColumn)
+        {
+            IXLRange row = CreateRow(ref worksheet, ref currentRow, lastColumn);
+
+            row.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+            row.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+            int currentColumn = 1;
+            row.Cell(1, currentColumn++).Value = column.ColumnName;
+            row.Cell(1, currentColumn++).Value = column.ColumnDescription;
+            row.Cell(1, currentColumn++).Value = column.ColumnDataType;
+            row.Cell(1, currentColumn++).Value = column.AdditionalInfoFormatted;
+            row.Cell(1, currentColumn++).Value = column.DefaultValue;
+            row.Cell(1, currentColumn++).Value = column.AllowsNulls;
+            row.Cell(1, currentColumn++).Value = column.PartOfKeyFormatted;
 
             currentRow++;
         }

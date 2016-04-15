@@ -134,7 +134,7 @@ namespace CreateDataDictionary.Business.Tests.Models
         /// null DefaultValue sets as empty string
         /// </summary>
         [TestMethod]
-        public void TableColumnInfo_ctor_EmptyStringWithNullDefaultValue()
+        public void TableColumnInfo_ctor_NotApplicableWithNullDefaultValue()
         {
             // Arrange / Act
             _biz = new TableColumnInfo(
@@ -147,7 +147,7 @@ namespace CreateDataDictionary.Business.Tests.Models
                 _keySequence
             );
 
-            Assert.AreEqual(string.Empty, _biz.DefaultValue, nameof(_biz.DefaultValue));
+            Assert.AreEqual("N/A", _biz.DefaultValue, nameof(_biz.DefaultValue));
         }
 
         /// <summary>

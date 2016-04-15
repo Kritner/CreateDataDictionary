@@ -48,6 +48,34 @@ namespace CreateDataDictionary.Business.Models
         /// The key sequence.  When not part of a primary key, set as 0.
         /// </summary>
         public int? KeySequence { get; private set; }
+
+        /// <summary>
+        /// Formatted label for Additional Info
+        /// </summary>
+        public string AdditionalInfoFormatted
+        {
+            get
+            {
+                if (ColumnLength > 0)
+                    return string.Format("Max Length: {0}", ColumnLength);
+
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Is the column a part of the key?
+        /// </summary>
+        public bool PartOfKeyFormatted
+        {
+            get
+            {
+                if (KeySequence > 0)
+                    return true;
+
+                return false;
+            }
+        }
         #endregion Properties
 
         #region ctor
@@ -70,7 +98,7 @@ namespace CreateDataDictionary.Business.Models
             if (string.IsNullOrEmpty(columnDataType))
                 throw new ArgumentNullException(nameof(columnDataType));
             if (string.IsNullOrEmpty(defaultValue))
-                defaultValue = string.Empty;
+                defaultValue = "N/A";
 
             ColumnName = columnName;
             ColumnDescription = columnDescription;
