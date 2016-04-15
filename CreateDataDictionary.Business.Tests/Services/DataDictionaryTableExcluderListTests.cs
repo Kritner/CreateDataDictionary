@@ -32,7 +32,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             _testData = DataHelpers.GetSampleTableColumnInfoRaw();
             _listToRemove = new List<string>()
             {
-                "RemoveMeDueToProvidingInDataDictionaryTableExcluderListConstructor"
+                "RemoveDueToCtorParameter"
             };
             _biz = new DataDictionaryTableExcluderList(_listToRemove);
         }
@@ -65,7 +65,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         }
 
         /// <summary>
-        /// RemoveTables - table "RemoveMeDueToProvidingInDataDictionaryTableExcluderListConstructor" is removed from the list 
+        /// RemoveTables - table "RemoveDueToCtorParameter" is removed from the list 
         /// due to being present in the list of tables to remove from the constructor.
         /// </summary>
         [TestMethod]
@@ -73,7 +73,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         {
             // Arrange
             int expectedTestDataCount = 7;
-            string tableShouldBeRemoved = "RemoveMeDueToProvidingInDataDictionaryTableExcluderListConstructor";
+            string tableShouldBeRemoved = "RemoveDueToCtorParameter";
 
             // Relying on specific data - if the count does not match, fail - not a perfect test by any means, but should help
             if (_testData.Count != expectedTestDataCount)

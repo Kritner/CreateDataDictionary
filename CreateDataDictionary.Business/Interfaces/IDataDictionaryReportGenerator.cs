@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ClosedXML.Excel;
 using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Interfaces
@@ -12,6 +13,12 @@ namespace CreateDataDictionary.Business.Interfaces
         /// Generate the report
         /// </summary>
         /// <param name="dataDictionaryData">The dictionary data to generate the report based on.</param>
-        void GenerateReport(IEnumerable<TableInfo> dataDictionaryData, string fileName);
+        XLWorkbook GenerateReport(IEnumerable<TableInfo> dataDictionaryData);
+        /// <summary>
+        /// Save the XLWorkbook
+        /// </summary>
+        /// <param name="workbook">The workbook to save</param>
+        /// <param name="fileName">The fileName to save</param>
+        void SaveReport(XLWorkbook workbook, string fileName);
     }
 }

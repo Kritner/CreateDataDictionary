@@ -50,7 +50,7 @@ namespace CreateDataDictionary.Business.Tests
                 new DateTime(2000, 1, 1)
             ));
             list.Add(new TableColumnInfoRaw(
-                "RemoveMeDueToProvidingInDataDictionaryTableExcluderListConstructor",
+                "RemoveDueToCtorParameter",
                 "This is a table that should be removed due to DataDictionaryTableExcluderList's constructor parameter",
                 "SampleColumnName",
                 string.Empty,
@@ -74,7 +74,7 @@ namespace CreateDataDictionary.Business.Tests
                 new DateTime(2000, 1, 1)
             ));
             list.Add(new TableColumnInfoRaw(
-                "TableWithDescriptionNoColumnDescription",
+                "TableWithDescNoColumnDesc",
                 "this is a table with a description",
                 "SampleColumnNameWithNoDescription",
                 string.Empty,
@@ -86,7 +86,7 @@ namespace CreateDataDictionary.Business.Tests
                 new DateTime(2001, 1, 1)
             ));
             list.Add(new TableColumnInfoRaw(
-                "TableWithDescriptionNoColumnDescription",
+                "TableWithDescNoColumnDesc",
                 "this is a table with a description",
                 "ColumnWithDescription",
                 "This is a column with a description",
@@ -98,7 +98,7 @@ namespace CreateDataDictionary.Business.Tests
                 new DateTime(2001, 1, 1)
             ));
             list.Add(new TableColumnInfoRaw(
-                "TableWithDescriptionNoDescription",
+                "TableWithDescNoDesc",
                 string.Empty,
                 "ColumnWithDescription",
                 "This is a column with a description",

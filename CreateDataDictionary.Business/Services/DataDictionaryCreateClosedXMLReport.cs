@@ -12,38 +12,50 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// Generate the DataDictionary in closedXml
     /// </summary>
-    public class DataDictionaryCreateCloxedXMLReport : IDataDictionaryReportGenerator
+    public class DataDictionaryCreateClosedXMLReport : IDataDictionaryReportGenerator
     {
         
         #region private
         private List<TableInfo> _data;
-        private string _fileName;
         private XLColor _headingColor = XLColor.FromArgb(153, 204, 255);
         #endregion private
 
         #region Public methods
+
         /// <summary>
         /// Generate the report
         /// </summary>
-        /// <param name="dataDictionaryData"></param>
-        /// <param name="fileName"></param>
-        public void GenerateReport(IEnumerable<TableInfo> dataDictionaryData, string fileName)
+        /// <param name="dataDictionaryData">The data to use for the creation of the report</param>
+        /// <returns>The report</returns>
+        public XLWorkbook GenerateReport(IEnumerable<TableInfo> dataDictionaryData)
         {
             if (dataDictionaryData == null)
                 throw new ArgumentNullException(nameof(dataDictionaryData));
             if (dataDictionaryData.Count() == 0)
                 throw new ArgumentException(nameof(dataDictionaryData));
+
+            _data = dataDictionaryData.ToList();
+
+            XLWorkbook workbook = CreateWorkbook();
+            workbook = CreateWorkbookContents(workbook);
+
+            return workbook;
+        }
+
+        /// <summary>
+        /// Save the report
+        /// </summary>
+        /// <param name="workbook">The workbook to save</param>
+        /// <param name="fileName">The filename to save</param>
+        public void SaveReport(XLWorkbook workbook, string fileName)
+        {
+            if (workbook == null)
+                throw new ArgumentNullException(nameof(workbook));
             if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException(nameof(fileName));
 
-            _data = dataDictionaryData.ToList();
-            _fileName = fileName;
-
-            var workbook = CreateWorkbook();
-            workbook = CreateWorkbookContents(workbook);
             workbook.SaveAs(fileName);
         }
-
         #endregion Public methods
 
         #region Report Helpers

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using ClosedXML.Excel;
 using CreateDataDictionary.Business.Interfaces;
 using CreateDataDictionary.Business.Models;
 using CreateDataDictionary.Business.Services;
@@ -143,7 +144,8 @@ namespace CreateDataDictionary.Business.Tests.Services
             _mockIDataDictionaryExclusionRules.Verify(v => v.GetRules(), Times.Once, "GetRules");
             _mockIDataDictionaryExclusionRules.Verify(v => v.FilterTablesMeetingRuleCriteria(It.IsAny<IEnumerable<IDataDictionaryTableExcluder>>(), It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "FilterTablesMeetingRuleCriteria");
             _mockIDataDictionaryObjectCreator.Verify(v => v.TransformRawDataIntoFormattedObjects(It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "TransformRawDataIntoFormattedObjects");
-            _mockIDataDictionaryReportGenerator.Verify(v => v.GenerateReport(It.IsAny<IEnumerable<TableInfo>>(), It.IsAny<string>()));
+            _mockIDataDictionaryReportGenerator.Verify(v => v.GenerateReport(It.IsAny<IEnumerable<TableInfo>>()), Times.Once, "GenerateReport");
+            _mockIDataDictionaryReportGenerator.Verify(v => v.SaveReport(It.IsAny<XLWorkbook>(), It.IsAny<string>()), Times.Once, "SaveReport");
         }
         #endregion Public methods/tests
     }

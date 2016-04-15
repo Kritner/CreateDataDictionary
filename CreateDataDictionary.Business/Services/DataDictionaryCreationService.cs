@@ -74,7 +74,8 @@ namespace CreateDataDictionary.Business.Services
             var transformedData = _iDataDictionaryObjectCreator.TransformRawDataIntoFormattedObjects(filteredData);
 
             // Generate the report
-            _iDataDictionaryReportGenerator.GenerateReport(transformedData, filename);
+            var results = _iDataDictionaryReportGenerator.GenerateReport(transformedData);
+            _iDataDictionaryReportGenerator.SaveReport(results, filename);
         }
         #endregion Public methods
     }

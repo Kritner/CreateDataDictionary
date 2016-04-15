@@ -58,7 +58,7 @@
     <Compile Include="Models\TableColumnInfoRaw.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseDatabaseConnection.cs" />
-    <Compile Include="Services\DataDictionaryCreateCloxedXMLReport.cs" />
+    <Compile Include="Services\DataDictionaryCreateClosedXMLReport.cs" />
     <Compile Include="Services\DataDictionaryCreationService.cs" />
     <Compile Include="Services\DataDictionaryExclusionRulesService.cs" />
     <Compile Include="Services\DataDictionaryObjectCreatorService.cs" />

@@ -21,7 +21,7 @@ namespace CreateDataDictionary
                 ),
                 new DataDictionaryExclusionRulesService(),
                 new DataDictionaryObjectCreatorService(),
-                new DataDictionaryCreateCloxedXMLReport()
+                new DataDictionaryCreateClosedXMLReport()
             );
 
             //service.Execute(fileName);

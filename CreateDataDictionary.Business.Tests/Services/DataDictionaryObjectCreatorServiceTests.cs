@@ -82,7 +82,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             if (results.Count() != expectedResultsTableCount)
                 Assert.Fail(string.Format("Expected {0} records in {1}", expectedResultsTableCount, nameof(results)));
             Assert.AreEqual(1, results.First(f => f.TableName == "SampleTableShouldNotBeRemoved").TableColumns.Count, "SampleTableShouldNotBeRemoved columns count");
-            Assert.AreEqual(2, results.First(f => f.TableName == "TableWithDescriptionNoColumnDescription").TableColumns.Count, "TableWithDescriptionNoColumnDescription columns count");
+            Assert.AreEqual(2, results.First(f => f.TableName == "TableWithDescNoColumnDesc").TableColumns.Count, "TableWithDescNoColumnDesc columns count");
         }
         #endregion Public methods/tests
     }
