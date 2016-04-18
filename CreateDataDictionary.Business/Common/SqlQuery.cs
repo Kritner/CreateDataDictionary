@@ -71,8 +71,7 @@ Order BY c.TABLE_NAME, C.Ordinal_Position
         /// </code>
         /// </example>
         public const string _SCRIPT_TEMPLATE_FOR_TABLE =
-            @"
-IF NOT EXISTS (
+            @"IF NOT EXISTS (
     SELECT NULL 
     FROM SYS.EXTENDED_PROPERTIES 
     WHERE [major_id] = OBJECT_ID('{0}') 
@@ -112,8 +111,7 @@ ELSE
         /// </code>
         /// </example>
         public const string _SCRIPT_TEMPLATE_FOR_TABLE_COLUMN =
-            @"
-IF NOT EXISTS (
+            @"IF NOT EXISTS (
     SELECT NULL 
     FROM SYS.EXTENDED_PROPERTIES 
     WHERE [major_id] = OBJECT_ID('{0}') 

@@ -92,6 +92,8 @@ namespace CreateDataDictionary.Business.Services
         {
             worksheet.ColumnsUsed().AdjustToContents();
             worksheet.SheetView.FreezeRows(1);
+            worksheet.Rows().Height = 30;
+            worksheet.Column(3).Width = 40;
         }
         #endregion Report Helpers
 
@@ -125,6 +127,8 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, currentColumn++).Value = "Table Name";
             row.Cell(1, currentColumn++).Value = "Column Name";
             row.Cell(1, currentColumn++).Value = "Description";
+            row.Cell(1, currentColumn++).Value = string.Empty;
+            row.Cell(1, currentColumn++).Value = "SQL note find/replace double quote, added automatically";
         }
 
         /// <summary>
@@ -171,6 +175,17 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, currentColumn++).Value = table.TableName;
             row.Cell(1, currentColumn++).Value = string.Empty;
             row.Cell(1, currentColumn++).Value = table.TableDescription;
+            row.Cell(1, currentColumn++).Value = string.Empty;
+
+            string replacementFormula = "RC[1]";
+            replacementFormula = @"SUBSTITUTE(" + replacementFormula + @", ""{0}"", RC[-4])"; // Replaces {0} with table name
+            replacementFormula = "SUBSTITUTE(" + replacementFormula + @", ""{1}"", SUBSTITUTE(RC[-2], ""'"", ""''""))"; // Replaces {1} with description, also replaces "'" in description with "''" for SQL single quote escape
+
+            row.Cell(1, currentColumn++).FormulaR1C1 = @"=IF(RC[-2] = """", ""Enter a Table description (Column C)"", " + replacementFormula + ")";
+
+            int sqlScriptColumn = currentColumn++;
+            row.Cell(1, sqlScriptColumn).Value = Common.SqlQuery._SCRIPT_TEMPLATE_FOR_TABLE;
+            row.Cell(1, sqlScriptColumn).Style.Font.SetFontColor(XLColor.White);
         }
 
         /// <summary>
@@ -189,6 +204,18 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, currentColumn++).Value = column.Table.TableName;
             row.Cell(1, currentColumn++).Value = column.ColumnName;
             row.Cell(1, currentColumn++).Value = column.ColumnDescription;
+            row.Cell(1, currentColumn++).Value = string.Empty;
+
+            string replacementFormula = "RC[1]";
+            replacementFormula = @"SUBSTITUTE(" + replacementFormula + @", ""{0}"", RC[-4])"; // Replaces {0} with table name
+            replacementFormula = @"SUBSTITUTE(" + replacementFormula + @", ""{1}"", RC[-3])"; // Replaces {1} with columns name
+            replacementFormula = "SUBSTITUTE(" + replacementFormula + @", ""{2}"", SUBSTITUTE(RC[-2], ""'"", ""''""))"; // Replaces {2} with description, also replaces "'" in description with "''" for SQL single quote escape
+
+            row.Cell(1, currentColumn++).FormulaR1C1 = @"=IF(RC[-2] = """", ""Enter a Column description (Column C)"", " + replacementFormula + ")";
+
+            int sqlScriptColumn = currentColumn++;
+            row.Cell(1, sqlScriptColumn).Value = Common.SqlQuery._SCRIPT_TEMPLATE_FOR_TABLE_COLUMN;
+            row.Cell(1, sqlScriptColumn).Style.Font.SetFontColor(XLColor.White);
         }
         #endregion Private methods
 
