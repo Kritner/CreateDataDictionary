@@ -18,10 +18,16 @@ namespace CreateDataDictionary.Business.Tests.Services
     public class MissingDescriptionsSheetCreatorTests
     {
 
+        #region const
+        const string _TABLE_DESCRIPTION = "Enter a Table description (Column C)";
+        const string _COLUMN_DESCRIPTION = "Enter a Column description (Column C)";
+        #endregion const
+
         #region private
-        MissingDescriptionsSheetCreator _biz;
-        XLWorkbook _workbook;
-        List<TableInfo> _data;
+        private MissingDescriptionsSheetCreator _biz;
+        private XLWorkbook _workbook;
+        private List<TableInfo> _data;
+        private List<TableInfo> _missingDescriptionsData;
         #endregion private
 
         #region Setup
@@ -39,6 +45,27 @@ namespace CreateDataDictionary.Business.Tests.Services
             _data = service
                 .TransformRawDataIntoFormattedObjects(DataHelpers.GetSampleTableColumnInfoRaw())
                 .ToList();
+
+            _missingDescriptionsData = new List<TableInfo>()
+            {
+                new TableInfo(
+                    "Table",
+                    string.Empty,
+                    new DateTime(2000, 1, 1),
+                    new List<TableColumnInfo>()
+                    {
+                        new TableColumnInfo(
+                            "Column",
+                            string.Empty,
+                            "type",
+                            1,
+                            "default",
+                            true,
+                            1
+                        )
+                    })
+            };
+            _missingDescriptionsData.First().TableColumns.First().Table = _missingDescriptionsData.First();
         }
         #endregion Setup
 
@@ -178,6 +205,111 @@ namespace CreateDataDictionary.Business.Tests.Services
 
             // Assert
             Assert.AreEqual(expectedFoundCount, foundCount, string.Format("Found {0} instances of {1}, expected {2}", foundCount, tableWithMissingColumnDescription, expectedFoundCount));
+        }
+
+        /// <summary>
+        /// Tests data assumptions that the data contains two rows with reference to table "Table"
+        /// </summary>
+        [TestMethod]
+        public void MissingDescriptionsSheetCreator_CreateSheetInWorkbook_MissingDescriptionsCheckAssumptionsTwoInstances()
+        {
+            // Arrange / Act
+            if (_missingDescriptionsData.First().TableName != "Table")
+                Assert.Fail("Expected Table to exist within data");
+            if (_missingDescriptionsData.Count != 1)
+                Assert.Fail("Expected only one table to exist within data");
+
+            string table = _missingDescriptionsData.First().TableName;
+
+            _biz.CreateSheetInWorkbook(ref _workbook, _missingDescriptionsData);
+
+            if (_workbook.Worksheets.Count != 1)
+                Assert.Fail("Expected only one worksheet within workbook");
+
+            int rawDataCount = 10;
+            int foundCount = 0;
+            int expectedFoundCount = 2;
+
+            for (int rowIterator = 1; rowIterator < rawDataCount; rowIterator++)
+            {
+                if (_workbook.Worksheets.First().Cell(rowIterator, 1).Value.ToString() == table)
+                    foundCount++;
+            }
+
+            // Assert
+            Assert.AreEqual(expectedFoundCount, foundCount, string.Format("Found {0} instances of {1}, expected {2}", foundCount, table, expectedFoundCount));
+        }
+
+        /// <summary>
+        /// Checks that the excel sheet states there is a missing table and a missing column description, and that the labels are set appropriately while that information is missing
+        /// </summary>
+        [TestMethod]
+        public void MissingDescriptionsSheetCreator_CreateSheetInWorkbook_CheckOneMissingTableOneMissingColumnDesc()
+        {
+            _biz.CreateSheetInWorkbook(ref _workbook, _missingDescriptionsData);
+
+            int rawDataCount = 10;
+            int foundCountTable = 0;
+            int foundCountColumn = 0;
+            int expectedFoundCountTable = 1;
+            int expectedFoundCountColumn = 1;
+
+            for (int rowIterator = 1; rowIterator < rawDataCount; rowIterator++)
+            {
+                if (_workbook.Worksheets.First().Cell(rowIterator, 5).Value.ToString() == _TABLE_DESCRIPTION)
+                    foundCountTable++;
+                if (_workbook.Worksheets.First().Cell(rowIterator, 5).Value.ToString() == _COLUMN_DESCRIPTION)
+                    foundCountColumn++;
+            }
+
+            // Assert
+            Assert.AreEqual(expectedFoundCountTable, foundCountTable, string.Format("Found {0} instances of {1}, expected {2}", foundCountTable, nameof(foundCountTable), expectedFoundCountTable));
+            Assert.AreEqual(expectedFoundCountColumn, foundCountColumn, string.Format("Found {0} instances of {1}, expected {2}", foundCountColumn, nameof(foundCountColumn), expectedFoundCountColumn));
+        }
+
+        /// <summary>
+        /// Modifying the blank description creates a SQL script that matches expectations
+        /// </summary>
+        [TestMethod]
+        public void MissingDescriptionsSheetCreator_CreateSheetInWorkbook_ModifyBlankDescriptionCreatesSqlScript()
+        {
+            // Arrange / Act
+            _biz.CreateSheetInWorkbook(ref _workbook, _missingDescriptionsData);
+            string description = "This test's stuff";
+
+            int maxRowCount = 10;
+            // Update the "description" for rows
+            for (int rowIterator = 1; rowIterator < maxRowCount; rowIterator++)
+                _workbook.Worksheets.First().Cell(rowIterator, 3).Value = description;
+
+            int expectedTable = 1;
+            int expectedColumn = 1;
+            int foundTable = 0;
+            int foundColumn = 0;
+
+            for (int rowIterator = 1; rowIterator < maxRowCount; rowIterator++)
+            {
+                // Table check
+                if (_workbook.Worksheets.First().Cell(rowIterator, 5).Value.ToString() ==
+                    string.Format(
+                        Common.SqlQuery._SCRIPT_TEMPLATE_FOR_TABLE, 
+                        _missingDescriptionsData.First().TableName, 
+                        description.Replace("'", "''")))
+                    foundTable++;
+
+                // Column check
+                if (_workbook.Worksheets.First().Cell(rowIterator, 5).Value.ToString() ==
+                    string.Format(
+                        Common.SqlQuery._SCRIPT_TEMPLATE_FOR_TABLE_COLUMN, 
+                        _missingDescriptionsData.First().TableName, 
+                        _missingDescriptionsData.First().TableColumns.First().ColumnName, 
+                        description.Replace("'", "''")))
+                    foundColumn++;
+            }
+
+            // Assert
+            Assert.AreEqual(expectedTable, foundTable, "Expected {0}, found {1} in {2}", expectedTable, foundTable, nameof(expectedTable));
+            Assert.AreEqual(expectedColumn, foundColumn, "Expected {0}, found {1} in {2}", expectedColumn, foundColumn, nameof(expectedColumn));
         }
         #endregion Public methods/tests
 
