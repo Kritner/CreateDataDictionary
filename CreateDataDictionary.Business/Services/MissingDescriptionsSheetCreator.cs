@@ -26,8 +26,8 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Create a worksheet that lists tables/columns that are missing descriptions
         /// </summary>
-        /// <param name="workbook"></param>
-        /// <param name="tables"></param>
+        /// <param name="workbook">The workbook in which to write</param>
+        /// <param name="tables">The table data</param>
         public void CreateSheetInWorkbook(ref XLWorkbook workbook, List<TableInfo> tables)
         {
             bool anyEmptyTableDescriptions = tables.Any(a => a.TableDescription == string.Empty);
@@ -51,8 +51,8 @@ namespace CreateDataDictionary.Business.Services
         /// Create a new row
         /// </summary>
         /// <param name="worksheet">The worksheet to create the </param>
-        /// <param name="currentRow"></param>
-        /// <param name="lastColumn"></param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
         /// <returns></returns>
         private IXLRange CreateRow(ref IXLWorksheet worksheet, ref int currentRow)
         {
@@ -82,7 +82,7 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Apply formatting to the worksheet
         /// </summary>
-        /// <param name="worksheet"></param>
+        /// <param name="worksheet">The worksheet to format</param>
         private void FormatWorksheet(ref IXLWorksheet worksheet)
         {
             worksheet.ColumnsUsed().AdjustToContents();
@@ -94,7 +94,7 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Create rows for tables that have tables or columns with missing descriptions
         /// </summary>
-        /// <param name="sheet"></param>
+        /// <param name="sheet">The worksheet to format</param>
         private void CreateTableRowsForMissingDescriptions(ref IXLWorksheet sheet)
         {
             int currentRow = 1;
@@ -111,8 +111,8 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Create the table header
         /// </summary>
-        /// <param name="sheet"></param>
-        /// <param name="currentRow"></param>
+        /// <param name="sheet">The worksheet</param>
+        /// <param name="currentRow">The current row</param>
         private void CreateTableHeader(ref IXLWorksheet sheet, ref int currentRow)
         {
             IXLRange row = CreateRow(ref sheet, ref currentRow);
@@ -125,9 +125,9 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Create rows for tables that have missing table or column descriptions
         /// </summary>
-        /// <param name="sheet"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="table"></param>
+        /// <param name="sheet">The worksheet</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="table">The table to print</param>
         private void CreateTableRowsForMissingDescriptions(ref IXLWorksheet sheet, ref int currentRow, TableInfo table)
         {
             bool emptyTableDescription = table.TableDescription == string.Empty;
@@ -156,9 +156,9 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Create the Row describing for a table missing its description
         /// </summary>
-        /// <param name="sheet"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="table"></param>
+        /// <param name="sheet">The worksheet</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="table">The table to print</param>
         private void CreateTableRowForMissingDescription(ref IXLWorksheet sheet, ref int currentRow, TableInfo table)
         {
             IXLRange row = CreateRow(ref sheet, ref currentRow);
@@ -171,9 +171,9 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Create rows for missing column descriptions
         /// </summary>
-        /// <param name="sheet"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="column"></param>
+        /// <param name="sheet">The worksheet</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="column">The column to print</param>
         private void CreateTableRowsForMissingColumnDescriptions(ref IXLWorksheet sheet, ref int currentRow, TableColumnInfo column)
         {
             if (!string.IsNullOrEmpty(column.ColumnDescription))
