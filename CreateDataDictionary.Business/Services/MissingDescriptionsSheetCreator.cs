@@ -30,6 +30,11 @@ namespace CreateDataDictionary.Business.Services
         /// <param name="tables">The table data</param>
         public void CreateSheetInWorkbook(ref XLWorkbook workbook, List<TableInfo> tables)
         {
+            if (tables == null)
+                throw new ArgumentNullException(nameof(tables));
+            if (tables.Count == 0)
+                throw new ArgumentException(nameof(tables));
+
             bool anyEmptyTableDescriptions = tables.Any(a => a.TableDescription == string.Empty);
             bool anyEmptyColumnsDescriptions = tables.Any(a => a.TableColumns.Any(a2 => a2.ColumnDescription == string.Empty));
 

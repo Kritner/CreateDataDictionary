@@ -29,7 +29,7 @@ namespace CreateDataDictionary.Business.Tests
                 "SampleTableShouldNotBeRemoved",
                 "This is a sample description",
                 "SampleColumnName",
-                string.Empty,
+                "Column Description",
                 "varchar",
                 255,
                 null,

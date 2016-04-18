@@ -78,6 +78,7 @@
     <Compile Include="Services\DataDictionaryExclusionRulesServiceTests.cs" />
     <Compile Include="Services\DataDictionaryCreationServiceTests.cs" />
     <Compile Include="Services\DataDictionaryCreateClosedXMLReportTests.cs" />
+    <Compile Include="Services\MissingDescriptionsSheetCreatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CreateDataDictionary.Business\CreateDataDictionary.Business.csproj">
