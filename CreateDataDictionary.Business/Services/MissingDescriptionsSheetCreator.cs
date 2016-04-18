@@ -65,12 +65,28 @@ namespace CreateDataDictionary.Business.Services
         }
 
         /// <summary>
+        /// Apply shading to the section
+        /// </summary>
+        /// <param name="worksheet">The worksheet.</param>
+        /// <param name="startSectionRow">The start section row</param>
+        /// <param name="endSectionRow">The end section row</param>
+        private void ApplyFormattingToSection(ref IXLWorksheet worksheet, int startSectionRow, int endSectionRow)
+        {
+            string rangeBegin = XLHelper.GetColumnLetterFromNumber(1) + startSectionRow;
+            string rangeEnd = XLHelper.GetColumnLetterFromNumber(_NUMBER_OF_COLUMNS_WIDE) + endSectionRow;
+            IXLRange range = worksheet.Range(rangeBegin, rangeEnd);
+
+            range.Style.Fill.SetBackgroundColor(XLColor.LightGray);
+        }
+
+        /// <summary>
         /// Apply formatting to the worksheet
         /// </summary>
         /// <param name="worksheet"></param>
         private void FormatWorksheet(ref IXLWorksheet worksheet)
         {
             worksheet.ColumnsUsed().AdjustToContents();
+            worksheet.SheetView.FreezeRows(1);
         }
         #endregion Report Helpers
 
@@ -120,16 +136,36 @@ namespace CreateDataDictionary.Business.Services
             if (!emptyTableDescription && !emptyColumnsDescriptions)
                 return;
 
+            int startSectionRow = currentRow;
+
+            if (emptyTableDescription)
+            {
+                CreateTableRowForMissingDescription(ref sheet, ref currentRow, table);
+            }
+
+            foreach (TableColumnInfo column in table.TableColumns)
+                CreateTableRowsForMissingColumnDescriptions(ref sheet, ref currentRow, column);
+
+            int endSectionRow = currentRow - 1;
+
+            ApplyFormattingToSection(ref sheet, startSectionRow, endSectionRow);
+
+            currentRow++;
+        }
+
+        /// <summary>
+        /// Create the Row describing for a table missing its description
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <param name="currentRow"></param>
+        /// <param name="table"></param>
+        private void CreateTableRowForMissingDescription(ref IXLWorksheet sheet, ref int currentRow, TableInfo table)
+        {
             IXLRange row = CreateRow(ref sheet, ref currentRow);
             int currentColumn = 1;
             row.Cell(1, currentColumn++).Value = table.TableName;
             row.Cell(1, currentColumn++).Value = string.Empty;
             row.Cell(1, currentColumn++).Value = table.TableDescription;
-
-            foreach (TableColumnInfo column in table.TableColumns)
-                CreateTableRowsForMissingColumnDescriptions(ref sheet, ref currentRow, column);
-
-            currentRow++;
         }
 
         /// <summary>

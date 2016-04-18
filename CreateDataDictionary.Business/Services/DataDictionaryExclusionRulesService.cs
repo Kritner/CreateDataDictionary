@@ -42,10 +42,10 @@ namespace CreateDataDictionary.Business.Services
         {
             List<IDataDictionaryTableExcluder> list = new List<IDataDictionaryTableExcluder>();
             list.Add(new DataDictionaryTableExcluderList(_tablesToExclude));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"bak")));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"bkup")));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"tmp")));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"temp")));
+            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"bak", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
+            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"bkup", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
+            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"tmp", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
+            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"temp", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
 
             return list;
         }
