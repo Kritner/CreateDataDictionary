@@ -58,6 +58,7 @@
     <Compile Include="Models\TableColumnInfoRaw.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseDatabaseConnection.cs" />
+    <Compile Include="Interfaces\IMissingDescriptionsSheetCreator.cs" />
     <Compile Include="Services\MissingDescriptionsSheetCreator.cs" />
     <Compile Include="Services\DataDictionaryCreateClosedXMLReport.cs" />
     <Compile Include="Services\DataDictionaryCreationService.cs" />

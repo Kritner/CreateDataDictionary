@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClosedXML.Excel;
+using CreateDataDictionary.Business.Interfaces;
 using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Services
@@ -11,7 +12,7 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// Used to generate a sheet in the excel workbook that lists the missing descriptions
     /// </summary>
-    public class MissingDescriptionsSheetCreator
+    public class MissingDescriptionsSheetCreator : IMissingDescriptionsSheetCreator
     {
 
         #region const

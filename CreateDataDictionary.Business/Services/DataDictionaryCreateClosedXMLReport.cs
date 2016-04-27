@@ -18,10 +18,21 @@ namespace CreateDataDictionary.Business.Services
         #region private
         private List<TableInfo> _data;
         private XLColor _headingColor = XLColor.FromArgb(153, 204, 255);
+        private readonly IMissingDescriptionsSheetCreator _iMissingDescriptionsSheetCreator;
         #endregion private
 
-        #region Public methods
+        #region ctor
+        /// <summary>
+        /// Constructor - takes in dependencies
+        /// </summary>
+        /// <param name="iMissingDescriptionsSheetCreator">The IMissingDescriptionsSheetCreator implementation</param>
+        public DataDictionaryCreateClosedXMLReport(IMissingDescriptionsSheetCreator iMissingDescriptionsSheetCreator)
+        {
+            _iMissingDescriptionsSheetCreator = iMissingDescriptionsSheetCreator;
+        }
+        #endregion ctor
 
+        #region Public methods
         /// <summary>
         /// Generate the report
         /// </summary>
@@ -38,8 +49,9 @@ namespace CreateDataDictionary.Business.Services
 
             XLWorkbook workbook = CreateWorkbook();
 
-            MissingDescriptionsSheetCreator missingDescriptions = new MissingDescriptionsSheetCreator();
-            missingDescriptions.CreateSheetInWorkbook(ref workbook, _data);
+            // Generate the missing descriptions sheet within the workbook, if an implementation is provided
+            if (_iMissingDescriptionsSheetCreator != null)
+                _iMissingDescriptionsSheetCreator.CreateSheetInWorkbook(ref workbook, _data);
 
             workbook = CreateWorksheetContents(workbook);
 
@@ -106,16 +118,18 @@ namespace CreateDataDictionary.Business.Services
         }
         #endregion Report Helpers
 
-        #region Private methods
+        #region Protected methods
         /// <summary>
         /// Create the workbook
         /// </summary>
         /// <returns></returns>
-        private XLWorkbook CreateWorkbook()
+        protected virtual XLWorkbook CreateWorkbook()
         {
             return new XLWorkbook();
         }
+        #endregion Protected methods
 
+        #region Private methods
         /// <summary>
         /// Create the workbook contents
         /// </summary>
