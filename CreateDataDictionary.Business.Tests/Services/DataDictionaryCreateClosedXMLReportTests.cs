@@ -41,20 +41,34 @@ namespace CreateDataDictionary.Business.Tests.Services
         XLWorkbook _testWorkbook;
         Mock<IMissingDescriptionsSheetCreator> _mockIMissingDescriptionsSheetCreator;
         #region test class
+        /// <summary>
+        /// Used for testing dependency interface calls - needed due to ref XLWorkbook, 
+        /// need to have actual instance to do appropriate asserts.
+        /// </summary>
         private class TestableDataDictionaryCreateClosedXMLReport : DataDictionaryCreateClosedXMLReport
         {
             private XLWorkbook _workbook;
 
+            /// <summary>
+            /// Ctor - call base
+            /// </summary>
+            /// <param name="iMissingDescriptionsSheetCreator">The IMissingDescriptionsSheetCreator implementation</param>
             public TestableDataDictionaryCreateClosedXMLReport(IMissingDescriptionsSheetCreator iMissingDescriptionsSheetCreator) : 
-                base(iMissingDescriptionsSheetCreator)
-            {
-            }
+                base(iMissingDescriptionsSheetCreator) { }
 
+            /// <summary>
+            /// Set the workbook
+            /// </summary>
+            /// <param name="workbook"></param>
             public void SetWorkBook(XLWorkbook workbook)
             {
                 _workbook = workbook;
             }
 
+            /// <summary>
+            /// Return the workbook that was passed in <see cref="SetWorkBook(XLWorkbook)"/>
+            /// </summary>
+            /// <returns></returns>
             protected override XLWorkbook CreateWorkbook()
             {
                 return _workbook;
