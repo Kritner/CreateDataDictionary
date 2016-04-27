@@ -98,7 +98,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             _biz.Execute("FileName");
 
             // Assert
-            _mockIDataDictionaryTableDataProvider.Verify(v => v.GetTableData(), Times.Once, "GetTableData");
+            _mockIDataDictionaryTableDataProvider.Verify(v => v.Execute(), Times.Once, "GetTableData");
             _mockIDataDictionaryReportGenerator.Verify(v => v.GenerateReport(It.IsAny<IEnumerable<TableInfo>>()), Times.Once, "GenerateReport");
             _mockIDataDictionaryReportGenerator.Verify(v => v.SaveReport(It.IsAny<XLWorkbook>(), It.IsAny<string>()), Times.Once, "SaveReport");
         }

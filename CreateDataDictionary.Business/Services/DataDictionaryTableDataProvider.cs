@@ -43,7 +43,7 @@ namespace CreateDataDictionary.Business.Services
         }
         #endregion ctor
 
-        public IEnumerable<TableInfo> GetTableData()
+        public IEnumerable<TableInfo> Execute()
         {
             // Get the data from the db
             var dbRawData = _iGetDbTableColumnInfo.GetTableColumnInformation();

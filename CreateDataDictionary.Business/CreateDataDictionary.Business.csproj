@@ -51,9 +51,14 @@
   <ItemGroup>
     <Compile Include="Common\SqlQuery.cs" />
     <Compile Include="Interfaces\IBaseDatabaseConnection.cs" />
+    <Compile Include="Interfaces\IDataDictionaryStoredProcFunctionDataProvider.cs" />
+    <Compile Include="Interfaces\IGetDbStoredProcFuncInfo.cs" />
+    <Compile Include="Interfaces\IStoredProcFuncModelObjectCreator.cs" />
     <Compile Include="Interfaces\ITableExclusionRules.cs" />
     <Compile Include="Interfaces\ITableExcluder.cs" />
     <Compile Include="Interfaces\IDataDictionaryTableDataProvider.cs" />
+    <Compile Include="Models\StoredProcFuncInfoRaw.cs" />
+    <Compile Include="Models\StoredProcFuncInfo.cs" />
     <Compile Include="Models\TableColumnInfo.cs" />
     <Compile Include="Models\TableInfo.cs" />
     <Compile Include="Models\TableColumnInfoRaw.cs" />

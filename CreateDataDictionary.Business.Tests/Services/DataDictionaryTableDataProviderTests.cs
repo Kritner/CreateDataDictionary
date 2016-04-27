@@ -102,7 +102,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         public void DataDictionaryTableDataProvider_Execute_ExecutesDependencies()
         {
             // Act
-            _biz.GetTableData();
+            _biz.Execute();
 
             // Assert
             _mockIGetDbTableColumnInfo.Verify(v => v.GetTableColumnInformation(), Times.Once, "GetTableColumnInformation");

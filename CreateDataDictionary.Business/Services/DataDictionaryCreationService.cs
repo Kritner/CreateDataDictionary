@@ -50,7 +50,7 @@ namespace CreateDataDictionary.Business.Services
                 throw new ArgumentNullException(nameof(filename));
 
             // Get table data
-            var transformedData = _iDataDictionaryTableDataProvider.GetTableData();
+            var transformedData = _iDataDictionaryTableDataProvider.Execute();
 
             // Generate the report
             var results = _iDataDictionaryReportGenerator.GenerateReport(transformedData);
