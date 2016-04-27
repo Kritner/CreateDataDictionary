@@ -9,7 +9,7 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Services
 {
-    public class TableExcluderRegex : IDataDictionaryTableExcluder
+    public class TableExcluderRegex : ITableExcluder
     {
 
         #region Protected

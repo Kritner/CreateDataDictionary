@@ -13,7 +13,7 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// Contains a list of tables to exclude from the data dictionary
     /// </summary>
-    public class TableExcluderList : IDataDictionaryTableExcluder
+    public class TableExcluderList : ITableExcluder
     {
 
         #region Protected

@@ -52,7 +52,7 @@
     <Compile Include="Common\SqlQuery.cs" />
     <Compile Include="Interfaces\IBaseDatabaseConnection.cs" />
     <Compile Include="Interfaces\ITableExclusionRules.cs" />
-    <Compile Include="Interfaces\IDataDictionaryTableExcluder.cs" />
+    <Compile Include="Interfaces\ITableExcluder.cs" />
     <Compile Include="Interfaces\IDataDictionaryTableDataProvider.cs" />
     <Compile Include="Models\TableColumnInfo.cs" />
     <Compile Include="Models\TableInfo.cs" />

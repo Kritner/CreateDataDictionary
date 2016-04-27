@@ -16,7 +16,7 @@ namespace CreateDataDictionary.Business.Interfaces
         /// Get the rules for DataDictionary table exclusion
         /// </summary>
         /// <returns></returns>
-        IEnumerable<IDataDictionaryTableExcluder> GetRules();
+        IEnumerable<ITableExcluder> GetRules();
 
         /// <summary>
         /// Filter tables 
@@ -24,6 +24,6 @@ namespace CreateDataDictionary.Business.Interfaces
         /// <param name="rules">The rules to filter based on</param>
         /// <param name="preFilterTables">The tables to filter</param>
         /// <returns>The filtered tables</returns>
-        IEnumerable<TableColumnInfoRaw> FilterTablesMeetingRuleCriteria(IEnumerable<IDataDictionaryTableExcluder> rules, IEnumerable<TableColumnInfoRaw> preFilterTables);
+        IEnumerable<TableColumnInfoRaw> FilterTablesMeetingRuleCriteria(IEnumerable<ITableExcluder> rules, IEnumerable<TableColumnInfoRaw> preFilterTables);
     }
 }
