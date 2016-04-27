@@ -71,14 +71,15 @@
     <Compile Include="Models\TableInfoTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseDatabaseConnectionTests.cs" />
-    <Compile Include="Services\DataDictionaryObjectCreatorServiceTests.cs" />
-    <Compile Include="Services\DataDictionaryTableExcluderListTests.cs" />
-    <Compile Include="Services\DataDictionaryTableExcluderRegexTests.cs" />
+    <Compile Include="Services\TableModelObjectCreatorServiceTests.cs" />
+    <Compile Include="Services\TableExcluderListTests.cs" />
+    <Compile Include="Services\TableExcluderRegexTests.cs" />
     <Compile Include="Services\GetDbTableColumnInfoServiceTests.cs" />
-    <Compile Include="Services\DataDictionaryExclusionRulesServiceTests.cs" />
+    <Compile Include="Services\TableExclusionRulesServiceTests.cs" />
     <Compile Include="Services\DataDictionaryCreationServiceTests.cs" />
     <Compile Include="Services\DataDictionaryCreateClosedXMLReportTests.cs" />
     <Compile Include="Services\MissingDescriptionsSheetCreatorTests.cs" />
+    <Compile Include="Services\DataDictionaryTableDataProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CreateDataDictionary.Business\CreateDataDictionary.Business.csproj">

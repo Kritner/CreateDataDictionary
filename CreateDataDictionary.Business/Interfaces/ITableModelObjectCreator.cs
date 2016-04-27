@@ -7,7 +7,7 @@ namespace CreateDataDictionary.Business.Interfaces
     /// <summary>
     /// Creates the DataDictionary objects based on the raw data
     /// </summary>
-    public interface IDataDictionaryObjectCreator
+    public interface ITableModelObjectCreator
     {
         /// <summary>
         /// Transforms the raw SQL data into a form that can be used by the report generation

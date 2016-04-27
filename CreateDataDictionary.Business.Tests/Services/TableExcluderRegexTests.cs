@@ -15,13 +15,13 @@ namespace CreateDataDictionary.Business.Tests.Services
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class DataDictionaryTableExcluderRegexTests
+    public class TableExcluderRegexTests
     {
 
         #region private
         private List<TableColumnInfoRaw> _testData;
         private Regex _testRegex;
-        private DataDictionaryTableExcluderRegex _biz;
+        private TableExcluderRegex _biz;
         #endregion private
 
         #region Setup
@@ -33,7 +33,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         {
             _testData = DataHelpers.GetSampleTableColumnInfoRaw();
             _testRegex = new Regex(@"bak$");
-            _biz = new DataDictionaryTableExcluderRegex(_testRegex);
+            _biz = new TableExcluderRegex(_testRegex);
         }
         #endregion Setup
 
@@ -42,7 +42,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// Ensure table containing "bak" (for backup) is removed from the test list
         /// </summary>
         [TestMethod]
-        public void DataDictionaryTableExcluderRegex_RemoveTables_bakRemoved()
+        public void TableExcluderRegex_RemoveTables_bakRemoved()
         {
             // Arrange
             int expectedTestDataCount = 7;

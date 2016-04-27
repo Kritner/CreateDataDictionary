@@ -7,7 +7,7 @@ namespace CreateDataDictionary.Business.Interfaces
     /// <summary>
     /// Interface for creating a sheet for missing descriptions within the database tables and column
     /// </summary>
-    public interface IMissingDescriptionsSheetCreator
+    public interface IMissingTableDescriptionsSheetCreator
     {
         /// <summary>
         /// Creates a sheet within the provided workbook

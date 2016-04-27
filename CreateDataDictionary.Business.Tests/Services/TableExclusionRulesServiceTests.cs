@@ -16,10 +16,10 @@ namespace CreateDataDictionary.Business.Tests.Services
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class DataDictionaryExclusionRulesServiceTests
+    public class TableExclusionRulesServiceTests
     {
         #region private
-        DataDictionaryExclusionRulesService _biz;
+        TableExclusionRulesService _biz;
         List<TableColumnInfoRaw> _testData;
         #endregion private
 
@@ -30,7 +30,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         [TestInitialize]
         public void Setup()
         {
-            _biz = new DataDictionaryExclusionRulesService();
+            _biz = new TableExclusionRulesService();
             _testData = DataHelpers.GetSampleTableColumnInfoRaw();
         }
         #endregion Setup
@@ -43,7 +43,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// As of writing the test, there are 5 rules that should be applied
         /// </remarks>
         [TestMethod]
-        public void DataDictionaryExclusionRulesService_GetRules_ReturnsRules()
+        public void TableExclusionRulesService_GetRules_ReturnsRules()
         {
             // Act
             int expectedRules = 5;
@@ -59,7 +59,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void DataDictionaryExclusionRulesService_FilterTablesMeetingRuleCriteria_ArgumentNullExceptionWithNullRules()
+        public void TableExclusionRulesService_FilterTablesMeetingRuleCriteria_ArgumentNullExceptionWithNullRules()
         {
             // Arrange / Act / Assert
             var results = _biz.FilterTablesMeetingRuleCriteria(null, _testData);

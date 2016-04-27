@@ -12,7 +12,7 @@ namespace CreateDataDictionary.Business.Services
     /// Implementation of IDataDictionaryObjectCreator.  
     /// Used to transform raw SQL data into a format to be used by the DataDictionary creator.
     /// </summary>
-    public class DataDictionaryObjectCreatorService : IDataDictionaryObjectCreator
+    public class TableModelObjectCreatorService : ITableModelObjectCreator
     {
 
         /// <summary>

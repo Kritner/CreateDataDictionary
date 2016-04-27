@@ -13,7 +13,7 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// Contains a list of tables to exclude from the data dictionary
     /// </summary>
-    public class DataDictionaryTableExcluderList : IDataDictionaryTableExcluder
+    public class TableExcluderList : IDataDictionaryTableExcluder
     {
 
         #region Protected
@@ -35,7 +35,7 @@ namespace CreateDataDictionary.Business.Services
         /// Constructor - takes in additional tables to exclude
         /// </summary>
         /// <param name="additionalTablesToExclude"></param>
-        public DataDictionaryTableExcluderList(IEnumerable<string> additionalTablesToExclude)
+        public TableExcluderList(IEnumerable<string> additionalTablesToExclude)
         {
             if (additionalTablesToExclude != null && additionalTablesToExclude.Count() > 0)
                 _TablesToExclude.AddRange(additionalTablesToExclude);

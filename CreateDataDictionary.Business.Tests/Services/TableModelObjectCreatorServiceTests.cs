@@ -14,12 +14,12 @@ namespace CreateDataDictionary.Business.Tests.Services
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class DataDictionaryObjectCreatorServiceTests
+    public class TableModelObjectCreatorServiceTests
     {
 
         #region private
         List<TableColumnInfoRaw> _testData;
-        DataDictionaryObjectCreatorService _biz;
+        TableModelObjectCreatorService _biz;
         #endregion private
 
         #region Setup
@@ -30,7 +30,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         public void Setup()
         {
             _testData = DataHelpers.GetSampleTableColumnInfoRaw();
-            _biz = new DataDictionaryObjectCreatorService();
+            _biz = new TableModelObjectCreatorService();
         }
 
         #endregion Setup
@@ -41,7 +41,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void DataDictionaryObjectCreatorService_TransformRawDataIntoFormattedObjects_ArgumentNullExceptionThrownWhenNullRawData()
+        public void TableModelObjectCreatorService_TransformRawDataIntoFormattedObjects_ArgumentNullExceptionThrownWhenNullRawData()
         {
             // Arrange / Act / Assert
             var results = _biz.TransformRawDataIntoFormattedObjects(null);
@@ -51,7 +51,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// When there is no data within rawData, ensure no exception is thrown
         /// </summary>
         [TestMethod]
-        public void DataDictionaryObjectCreatorService_TransformRawDataIntoFormattedObjects_NoRawDataDoesNotThrownException()
+        public void TableModelObjectCreatorService_TransformRawDataIntoFormattedObjects_NoRawDataDoesNotThrownException()
         {
             // Arrange
             int expectedResultsCount = 0;
@@ -67,7 +67,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// Tests successful transformation using a variety of data scenarios
         /// </summary>
         [TestMethod]
-        public void DataDictionaryObjectCreatorService_TransformRawDataIntoFormattedObjects_Success()
+        public void TableModelObjectCreatorService_TransformRawDataIntoFormattedObjects_Success()
         {
             // Arrange
             int expectedRawDataCount = 7;

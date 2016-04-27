@@ -39,7 +39,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         List<TableInfo> _testData;
         DataDictionaryCreateClosedXMLReport _biz;
         XLWorkbook _testWorkbook;
-        Mock<IMissingDescriptionsSheetCreator> _mockIMissingDescriptionsSheetCreator;
+        Mock<IMissingTableDescriptionsSheetCreator> _mockIMissingDescriptionsSheetCreator;
         #region test class
         /// <summary>
         /// Used for testing dependency interface calls - needed due to ref XLWorkbook, 
@@ -53,7 +53,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             /// Ctor - call base
             /// </summary>
             /// <param name="iMissingDescriptionsSheetCreator">The IMissingDescriptionsSheetCreator implementation</param>
-            public TestableDataDictionaryCreateClosedXMLReport(IMissingDescriptionsSheetCreator iMissingDescriptionsSheetCreator) : 
+            public TestableDataDictionaryCreateClosedXMLReport(IMissingTableDescriptionsSheetCreator iMissingDescriptionsSheetCreator) : 
                 base(iMissingDescriptionsSheetCreator) { }
 
             /// <summary>
@@ -84,9 +84,9 @@ namespace CreateDataDictionary.Business.Tests.Services
         [TestInitialize]
         public void Setup()
         {
-            DataDictionaryObjectCreatorService service = new DataDictionaryObjectCreatorService();
+            TableModelObjectCreatorService service = new TableModelObjectCreatorService();
             _testData = service.TransformRawDataIntoFormattedObjects(DataHelpers.GetSampleTableColumnInfoRaw()).ToList();
-            _mockIMissingDescriptionsSheetCreator = new Mock<IMissingDescriptionsSheetCreator>();
+            _mockIMissingDescriptionsSheetCreator = new Mock<IMissingTableDescriptionsSheetCreator>();
             _biz = new DataDictionaryCreateClosedXMLReport(_mockIMissingDescriptionsSheetCreator.Object);
             _testWorkbook = _biz.GenerateReport(_testData);
         }
@@ -194,13 +194,13 @@ namespace CreateDataDictionary.Business.Tests.Services
         }
 
         /// <summary>
-        /// Ensure when <see cref="IMissingDescriptionsSheetCreator"/> not provided, CreateSheetInWorkbook is not called
+        /// Ensure when <see cref="IMissingTableDescriptionsSheetCreator"/> not provided, CreateSheetInWorkbook is not called
         /// </summary>
         [TestMethod]
         public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithNoIIMissingDescriptionsInterfaceNotInvoked()
         {
             // Arrange
-            Mock<IMissingDescriptionsSheetCreator> mock = new Mock<IMissingDescriptionsSheetCreator>();
+            Mock<IMissingTableDescriptionsSheetCreator> mock = new Mock<IMissingTableDescriptionsSheetCreator>();
             TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(null);
             XLWorkbook wb = new XLWorkbook();
             biz.SetWorkBook(wb);
@@ -213,13 +213,13 @@ namespace CreateDataDictionary.Business.Tests.Services
         }
 
         /// <summary>
-        /// Ensure when <see cref="IMissingDescriptionsSheetCreator"/> provided, CreateSheetInWorkbook is called
+        /// Ensure when <see cref="IMissingTableDescriptionsSheetCreator"/> provided, CreateSheetInWorkbook is called
         /// </summary>
         [TestMethod]
         public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithIIMissingDescriptionsInterfaceInvoked()
         {
             // Arrange
-            Mock<IMissingDescriptionsSheetCreator> mock = new Mock<IMissingDescriptionsSheetCreator>();
+            Mock<IMissingTableDescriptionsSheetCreator> mock = new Mock<IMissingTableDescriptionsSheetCreator>();
             TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(mock.Object);
             XLWorkbook wb = new XLWorkbook();
             biz.SetWorkBook(wb);

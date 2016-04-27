@@ -10,7 +10,7 @@ namespace CreateDataDictionary.Business.Interfaces
     /// <summary>
     /// Used to get the table exclusion rules for the data dictionary
     /// </summary>
-    public interface IDataDictionaryExclusionRules
+    public interface ITableExclusionRules
     {
         /// <summary>
         /// Get the rules for DataDictionary table exclusion

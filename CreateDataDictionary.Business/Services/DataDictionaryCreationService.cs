@@ -14,9 +14,7 @@ namespace CreateDataDictionary.Business.Services
     {
 
         #region private
-        private readonly IGetDbTableColumnInfo _iGetDbTableColumnInfo;
-        private readonly IDataDictionaryExclusionRules _iDataDictionaryExclusionRules;
-        private readonly IDataDictionaryObjectCreator _iDataDictionaryObjectCreator;
+        private readonly IDataDictionaryTableDataProvider _iDataDictionaryTableDataProvider;
         private readonly IDataDictionaryReportGenerator _iDataDictionaryReportGenerator;
         #endregion private
 
@@ -24,29 +22,19 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Constructor - takes in dependencies
         /// </summary>
-        /// <param name="iGetDbTableColumnInfo">The IGetDbTableColumnInfo dependency</param>
-        /// <param name="iDataDictionaryExclusionRules">The IDataDictionaryExclusionRules dependency</param>
-        /// <param name="iDataDictionaryObjectCreator">The IDataDictionaryObjectCreator dependency</param>
+        /// <param name="iDataDictionaryTableDataProvider">The IDataDictionaryTableDataProvider dependency</param>
         /// <param name="iDataDictionaryReportGenerator">The IDataDictionaryReportGenerator dependency</param>
         public DataDictionaryCreationService(
-            IGetDbTableColumnInfo iGetDbTableColumnInfo, 
-            IDataDictionaryExclusionRules iDataDictionaryExclusionRules, 
-            IDataDictionaryObjectCreator iDataDictionaryObjectCreator,
+            IDataDictionaryTableDataProvider iDataDictionaryTableDataProvider,
             IDataDictionaryReportGenerator iDataDictionaryReportGenerator
         )
         {
-            if (iGetDbTableColumnInfo == null)
-                throw new ArgumentNullException(nameof(iGetDbTableColumnInfo));
-            if (iDataDictionaryExclusionRules == null)
-                throw new ArgumentNullException(nameof(iDataDictionaryExclusionRules));
-            if (iDataDictionaryObjectCreator == null)
-                throw new ArgumentNullException(nameof(iDataDictionaryObjectCreator));
+            if (iDataDictionaryTableDataProvider == null)
+                throw new ArgumentNullException(nameof(iDataDictionaryTableDataProvider));
             if (iDataDictionaryReportGenerator == null)
                 throw new ArgumentNullException(nameof(iDataDictionaryReportGenerator));
 
-            _iGetDbTableColumnInfo = iGetDbTableColumnInfo;
-            _iDataDictionaryExclusionRules = iDataDictionaryExclusionRules;
-            _iDataDictionaryObjectCreator = iDataDictionaryObjectCreator;
+            _iDataDictionaryTableDataProvider = iDataDictionaryTableDataProvider;
             _iDataDictionaryReportGenerator = iDataDictionaryReportGenerator;
         }
         #endregion ctor
@@ -61,17 +49,8 @@ namespace CreateDataDictionary.Business.Services
             if (string.IsNullOrEmpty(filename))
                 throw new ArgumentNullException(nameof(filename));
 
-            // Get the data from the db
-            var dbRawData = _iGetDbTableColumnInfo.GetTableColumnInformation();
-
-            // Exclude the tables from the data that should be filtered
-            var filteredData = _iDataDictionaryExclusionRules.FilterTablesMeetingRuleCriteria(
-                _iDataDictionaryExclusionRules.GetRules(),
-                dbRawData
-            );
-
-            // Generate the objects for use in the generation of the report
-            var transformedData = _iDataDictionaryObjectCreator.TransformRawDataIntoFormattedObjects(filteredData);
+            // Get table data
+            var transformedData = _iDataDictionaryTableDataProvider.GetTableData();
 
             // Generate the report
             var results = _iDataDictionaryReportGenerator.GenerateReport(transformedData);

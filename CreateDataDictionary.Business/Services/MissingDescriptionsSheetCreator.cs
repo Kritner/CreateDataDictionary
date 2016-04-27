@@ -12,7 +12,7 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// Used to generate a sheet in the excel workbook that lists the missing descriptions
     /// </summary>
-    public class MissingDescriptionsSheetCreator : IMissingDescriptionsSheetCreator
+    public class MissingDescriptionsSheetCreator : IMissingTableDescriptionsSheetCreator
     {
 
         #region const

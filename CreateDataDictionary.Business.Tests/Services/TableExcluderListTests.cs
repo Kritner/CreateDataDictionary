@@ -14,12 +14,12 @@ namespace CreateDataDictionary.Business.Tests.Services
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class DataDictionaryTableExcluderListTests
+    public class TableExcluderListTests
     {
         #region private
         private List<TableColumnInfoRaw> _testData;
         private List<string> _listToRemove;
-        private DataDictionaryTableExcluderList _biz;
+        private TableExcluderList _biz;
         #endregion private
 
         #region Setup
@@ -34,7 +34,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             {
                 "RemoveDueToCtorParameter"
             };
-            _biz = new DataDictionaryTableExcluderList(_listToRemove);
+            _biz = new TableExcluderList(_listToRemove);
         }
         #endregion Setup
 
@@ -44,12 +44,12 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// due to being present in the list of tables to remove as per the implementation.
         /// </summary>
         [TestMethod]
-        public void DataDictionaryTableExcluderList_RemoveTables_RemovesTableFromClassList()
+        public void TableExcluderList_RemoveTables_RemovesTableFromClassList()
         {
             // Arrange
             int expectedTestDataCount = 7;
             string tableShouldBeRemoved = "aspnet_Paths";
-            _biz = new DataDictionaryTableExcluderList(null);
+            _biz = new TableExcluderList(null);
 
             // Relying on specific data - if the count does not match, fail - not a perfect test by any means, but should help
             if (_testData.Count != expectedTestDataCount)
@@ -69,7 +69,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// due to being present in the list of tables to remove from the constructor.
         /// </summary>
         [TestMethod]
-        public void DataDictionaryTableExcluderList_RemoveTables_RemovesTableFromConstructorList()
+        public void TableExcluderList_RemoveTables_RemovesTableFromConstructorList()
         {
             // Arrange
             int expectedTestDataCount = 7;

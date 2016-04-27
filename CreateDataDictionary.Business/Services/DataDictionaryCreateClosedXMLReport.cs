@@ -18,7 +18,7 @@ namespace CreateDataDictionary.Business.Services
         #region private
         private List<TableInfo> _data;
         private XLColor _headingColor = XLColor.FromArgb(153, 204, 255);
-        private readonly IMissingDescriptionsSheetCreator _iMissingDescriptionsSheetCreator;
+        private readonly IMissingTableDescriptionsSheetCreator _iMissingDescriptionsSheetCreator;
         #endregion private
 
         #region ctor
@@ -26,7 +26,7 @@ namespace CreateDataDictionary.Business.Services
         /// Constructor - takes in dependencies
         /// </summary>
         /// <param name="iMissingDescriptionsSheetCreator">The IMissingDescriptionsSheetCreator implementation</param>
-        public DataDictionaryCreateClosedXMLReport(IMissingDescriptionsSheetCreator iMissingDescriptionsSheetCreator)
+        public DataDictionaryCreateClosedXMLReport(IMissingTableDescriptionsSheetCreator iMissingDescriptionsSheetCreator)
         {
             _iMissingDescriptionsSheetCreator = iMissingDescriptionsSheetCreator;
         }

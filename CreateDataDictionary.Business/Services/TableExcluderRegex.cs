@@ -9,7 +9,7 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Services
 {
-    public class DataDictionaryTableExcluderRegex : IDataDictionaryTableExcluder
+    public class TableExcluderRegex : IDataDictionaryTableExcluder
     {
 
         #region Protected
@@ -21,7 +21,7 @@ namespace CreateDataDictionary.Business.Services
         /// Constructor - takes in regex
         /// </summary>
         /// <param name="regex">The regex to use for table removal</param>
-        public DataDictionaryTableExcluderRegex(Regex regex)
+        public TableExcluderRegex(Regex regex)
         {
             _regex = regex;
         }

@@ -19,9 +19,7 @@ namespace CreateDataDictionary.Business.Tests.Services
     public class DataDictionaryCreationServiceTests
     {
         #region private
-        private Mock<IGetDbTableColumnInfo> _mockIGetDbTableColumnInfo;
-        private Mock<IDataDictionaryExclusionRules> _mockIDataDictionaryExclusionRules;
-        private Mock<IDataDictionaryObjectCreator> _mockIDataDictionaryObjectCreator;
+        private Mock<IDataDictionaryTableDataProvider> _mockIDataDictionaryTableDataProvider;
         private Mock<IDataDictionaryReportGenerator> _mockIDataDictionaryReportGenerator;
         private DataDictionaryCreationService _biz;
         #endregion private
@@ -33,15 +31,11 @@ namespace CreateDataDictionary.Business.Tests.Services
         [TestInitialize]
         public void Setup()
         {
-            _mockIGetDbTableColumnInfo = new Mock<IGetDbTableColumnInfo>();
-            _mockIDataDictionaryExclusionRules = new Mock<IDataDictionaryExclusionRules>();
-            _mockIDataDictionaryObjectCreator = new Mock<IDataDictionaryObjectCreator>();
+            _mockIDataDictionaryTableDataProvider = new Mock<IDataDictionaryTableDataProvider>();
             _mockIDataDictionaryReportGenerator = new Mock<IDataDictionaryReportGenerator>();
 
             _biz = new DataDictionaryCreationService(
-                _mockIGetDbTableColumnInfo.Object,
-                _mockIDataDictionaryExclusionRules.Object,
-                _mockIDataDictionaryObjectCreator.Object,
+                _mockIDataDictionaryTableDataProvider.Object,
                 _mockIDataDictionaryReportGenerator.Object
             );
         }
@@ -59,53 +53,19 @@ namespace CreateDataDictionary.Business.Tests.Services
         }
 
         /// <summary>
-        /// <see cref="ArgumentNullException"/> thrown when no provided <see cref="IGetDbTableColumnInfo"/>
+        /// <see cref="ArgumentNullException"/> thrown when no provided <see cref="IDataDictionaryTableDataProvider"/>
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void DataDictionaryCreationService_ctor_ArgumentNullExceptionWithNoIGetDbTableColumnInfo()
+        public void DataDictionaryCreationService_ctor_ArgumentNullExceptionWithNoIDataDictionaryTableDataProvider()
         {
             // Arrange / Act / Assert
             _biz = new DataDictionaryCreationService(
                 null,
-                _mockIDataDictionaryExclusionRules.Object,
-                _mockIDataDictionaryObjectCreator.Object,
                 _mockIDataDictionaryReportGenerator.Object
             );
         }
-
-        /// <summary>
-        /// <see cref="ArgumentNullException"/> thrown when no provided <see cref="IDataDictionaryExclusionRules"/>
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void DataDictionaryCreationService_ctor_ArgumentNullExceptionWithNoIDataDictionaryExclusionRules()
-        {
-            // Arrange / Act / Assert
-            _biz = new DataDictionaryCreationService(
-                _mockIGetDbTableColumnInfo.Object,
-                null,
-                _mockIDataDictionaryObjectCreator.Object,
-                _mockIDataDictionaryReportGenerator.Object
-            );
-        }
-
-        /// <summary>
-        /// <see cref="ArgumentNullException"/> thrown when no provided <see cref="IDataDictionaryObjectCreator"/>
-        /// </summary>
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void DataDictionaryCreationService_ctor_ArgumentNullExceptionWithNoIDataDictionaryObjectCreator()
-        {
-            // Arrange / Act / Assert
-            _biz = new DataDictionaryCreationService(
-                _mockIGetDbTableColumnInfo.Object,
-                _mockIDataDictionaryExclusionRules.Object,
-                null,
-                _mockIDataDictionaryReportGenerator.Object
-            );
-        }
-
+        
         /// <summary>
         /// <see cref="ArgumentNullException"/> thrown when no provided <see cref="IDataDictionaryReportGenerator"/>
         /// </summary>
@@ -115,9 +75,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         {
             // Arrange / Act / Assert
             _biz = new DataDictionaryCreationService(
-                _mockIGetDbTableColumnInfo.Object,
-                _mockIDataDictionaryExclusionRules.Object,
-                _mockIDataDictionaryObjectCreator.Object,
+                _mockIDataDictionaryTableDataProvider.Object,
                 null
             );
         }
@@ -140,10 +98,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             _biz.Execute("FileName");
 
             // Assert
-            _mockIGetDbTableColumnInfo.Verify(v => v.GetTableColumnInformation(), Times.Once, "GetTableColumnInformation");
-            _mockIDataDictionaryExclusionRules.Verify(v => v.GetRules(), Times.Once, "GetRules");
-            _mockIDataDictionaryExclusionRules.Verify(v => v.FilterTablesMeetingRuleCriteria(It.IsAny<IEnumerable<IDataDictionaryTableExcluder>>(), It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "FilterTablesMeetingRuleCriteria");
-            _mockIDataDictionaryObjectCreator.Verify(v => v.TransformRawDataIntoFormattedObjects(It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "TransformRawDataIntoFormattedObjects");
+            _mockIDataDictionaryTableDataProvider.Verify(v => v.GetTableData(), Times.Once, "GetTableData");
             _mockIDataDictionaryReportGenerator.Verify(v => v.GenerateReport(It.IsAny<IEnumerable<TableInfo>>()), Times.Once, "GenerateReport");
             _mockIDataDictionaryReportGenerator.Verify(v => v.SaveReport(It.IsAny<XLWorkbook>(), It.IsAny<string>()), Times.Once, "SaveReport");
         }

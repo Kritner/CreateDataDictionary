@@ -40,7 +40,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             _biz = new MissingDescriptionsSheetCreator();
             _workbook = new XLWorkbook();
 
-            DataDictionaryObjectCreatorService service = new DataDictionaryObjectCreatorService();
+            TableModelObjectCreatorService service = new TableModelObjectCreatorService();
 
             _data = service
                 .TransformRawDataIntoFormattedObjects(DataHelpers.GetSampleTableColumnInfoRaw())

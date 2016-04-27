@@ -13,7 +13,7 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// The rules for excluding tables from the DataDictionary
     /// </summary>
-    public class DataDictionaryExclusionRulesService : IDataDictionaryExclusionRules
+    public class TableExclusionRulesService : ITableExclusionRules
     {
 
         #region const
@@ -28,7 +28,7 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Constructor
         /// </summary>
-        public DataDictionaryExclusionRulesService()
+        public TableExclusionRulesService()
         {
             _tablesToExclude = ConfigurationManager.AppSettings[_WEB_CONFIG_KEY_TABLE_EXCLUSION].Split(',').ToList();
         }
@@ -41,11 +41,11 @@ namespace CreateDataDictionary.Business.Services
         public IEnumerable<IDataDictionaryTableExcluder> GetRules()
         {
             List<IDataDictionaryTableExcluder> list = new List<IDataDictionaryTableExcluder>();
-            list.Add(new DataDictionaryTableExcluderList(_tablesToExclude));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"bak", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"bkup", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"tmp", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
-            list.Add(new DataDictionaryTableExcluderRegex(new Regex(@"temp", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
+            list.Add(new TableExcluderList(_tablesToExclude));
+            list.Add(new TableExcluderRegex(new Regex(@"bak", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
+            list.Add(new TableExcluderRegex(new Regex(@"bkup", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
+            list.Add(new TableExcluderRegex(new Regex(@"tmp", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
+            list.Add(new TableExcluderRegex(new Regex(@"temp", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
 
             return list;
         }
