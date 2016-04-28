@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Common\SqlQuery.cs" />
     <Compile Include="Interfaces\IBaseDatabaseConnection.cs" />
-    <Compile Include="Interfaces\IDataDictionaryStoredProcFunctionDataProvider.cs" />
+    <Compile Include="Interfaces\IDataDictionaryStoredProcFuncDataProvider.cs" />
     <Compile Include="Interfaces\IGetDbStoredProcFuncInfo.cs" />
     <Compile Include="Interfaces\IStoredProcFuncModelObjectCreator.cs" />
     <Compile Include="Interfaces\ITableExclusionRules.cs" />
@@ -65,10 +65,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseDatabaseConnection.cs" />
     <Compile Include="Interfaces\IMissingTableDescriptionsSheetCreator.cs" />
+    <Compile Include="Services\DataDictionaryStoredProcFuncDataProvider.cs" />
     <Compile Include="Services\DataDictionaryTableDataProvider.cs" />
+    <Compile Include="Interfaces\IStoredProcFuncSheetCreator.cs" />
     <Compile Include="Services\MissingDescriptionsSheetCreator.cs" />
     <Compile Include="Services\DataDictionaryCreateClosedXMLReport.cs" />
     <Compile Include="Services\DataDictionaryCreationService.cs" />
+    <Compile Include="Services\StoredProcFuncSheetCreator.cs" />
     <Compile Include="Services\TableExclusionRulesService.cs" />
     <Compile Include="Services\TableModelObjectCreatorService.cs" />
     <Compile Include="Services\TableExcluderList.cs" />

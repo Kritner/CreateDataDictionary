@@ -29,11 +29,11 @@ namespace CreateDataDictionary.Business.Services
         /// </summary>
         /// <param name="workbook">The workbook in which to write</param>
         /// <param name="tables">The table data</param>
-        public void CreateSheetInWorkbook(ref XLWorkbook workbook, List<TableInfo> tables)
+        public void CreateSheetInWorkbook(ref XLWorkbook workbook, IEnumerable<TableInfo> tables)
         {
             if (tables == null)
                 throw new ArgumentNullException(nameof(tables));
-            if (tables.Count == 0)
+            if (tables.Count() == 0)
                 throw new ArgumentException(nameof(tables));
 
             bool anyEmptyTableDescriptions = tables.Any(a => a.TableDescription == string.Empty);
@@ -43,7 +43,7 @@ namespace CreateDataDictionary.Business.Services
             if (!anyEmptyColumnsDescriptions && !anyEmptyColumnsDescriptions)
                 return;
 
-            _data = tables;
+            _data = tables.ToList();
 
             IXLWorksheet sheet = workbook.AddWorksheet("MissingDescriptions");
 

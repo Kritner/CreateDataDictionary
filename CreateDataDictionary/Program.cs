@@ -23,8 +23,10 @@ namespace CreateDataDictionary
                     new TableExclusionRulesService(),
                     new TableModelObjectCreatorService()
                 ),
+                new DataDictionaryStoredProcFuncDataProvider(),
                 new DataDictionaryCreateClosedXMLReport(
-                    new MissingDescriptionsSheetCreator()
+                    new MissingDescriptionsSheetCreator(),
+                    null //new StoredProcFuncSheetCreator()
                 )
             );
 

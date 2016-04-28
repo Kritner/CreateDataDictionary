@@ -12,8 +12,9 @@ namespace CreateDataDictionary.Business.Interfaces
         /// <summary>
         /// Generate the report
         /// </summary>
-        /// <param name="dataDictionaryData">The dictionary data to generate the report based on.</param>
-        XLWorkbook GenerateReport(IEnumerable<TableInfo> dataDictionaryData);
+        /// <param name="dataDictionaryTableData">The dictionary data table to generate the report based on.</param>
+        /// <param name="dataDictionaryStoredProcFuncData">The dictionary stored procedure and function data.</param>
+        XLWorkbook GenerateReport(IEnumerable<TableInfo> dataDictionaryTableData, IEnumerable<StoredProcFuncInfo> dataDictionaryStoredProcFuncData);
         /// <summary>
         /// Save the XLWorkbook
         /// </summary>

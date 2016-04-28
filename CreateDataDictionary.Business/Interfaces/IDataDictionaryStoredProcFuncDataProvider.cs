@@ -10,7 +10,7 @@ namespace CreateDataDictionary.Business.Interfaces
     /// <summary>
     /// Provides interface for getting data dictionary information pertaining to Stored procedures and functions
     /// </summary>
-    public interface IDataDictionaryStoredProcFunctionDataProvider
+    public interface IDataDictionaryStoredProcFuncDataProvider
     {
         IEnumerable<StoredProcFuncInfo> Execute();
     }
