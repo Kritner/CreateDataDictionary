@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\ITableExclusionRules.cs" />
     <Compile Include="Interfaces\ITableExcluder.cs" />
     <Compile Include="Interfaces\IDataDictionaryTableDataProvider.cs" />
+    <Compile Include="Models\StoredProcFuncInfoParams.cs" />
     <Compile Include="Models\StoredProcFuncInfoRaw.cs" />
     <Compile Include="Models\StoredProcFuncInfo.cs" />
     <Compile Include="Models\TableColumnInfo.cs" />
@@ -68,9 +69,11 @@
     <Compile Include="Services\DataDictionaryStoredProcFuncDataProvider.cs" />
     <Compile Include="Services\DataDictionaryTableDataProvider.cs" />
     <Compile Include="Interfaces\IStoredProcFuncSheetCreator.cs" />
+    <Compile Include="Services\GetDbStoredProcFuncInfo.cs" />
     <Compile Include="Services\MissingDescriptionsSheetCreator.cs" />
     <Compile Include="Services\DataDictionaryCreateClosedXMLReport.cs" />
     <Compile Include="Services\DataDictionaryCreationService.cs" />
+    <Compile Include="Services\StoredProcFuncModelObjectCreatorService.cs" />
     <Compile Include="Services\StoredProcFuncSheetCreator.cs" />
     <Compile Include="Services\TableExclusionRulesService.cs" />
     <Compile Include="Services\TableModelObjectCreatorService.cs" />

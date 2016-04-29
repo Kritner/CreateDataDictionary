@@ -12,6 +12,10 @@ namespace CreateDataDictionary.Business.Interfaces
     /// </summary>
     public interface IGetDbStoredProcFuncInfo
     {
+        /// <summary>
+        /// Get stored procedure and function information from the db
+        /// </summary>
+        /// <returns>Raw info on stored procs and functions</returns>
         IEnumerable<StoredProcFuncInfoRaw> GetStoredProcFunctionInformation();
     }
 }

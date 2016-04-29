@@ -10,9 +10,38 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class DataDictionaryStoredProcFuncDataProvider : IDataDictionaryStoredProcFuncDataProvider
     {
+
+        #region private
+        private IGetDbStoredProcFuncInfo _iGetDbStoredProcFuncInfo;
+        private IStoredProcFuncModelObjectCreator _iStoredProcFuncModelObjectCreator;
+        #endregion private
+
+        #region ctor
+        /// <summary>
+        /// Constructor - takes in dependencies
+        /// </summary>
+        /// <param name="iGetDbStoredProcFuncInfo">The IGetDbStoredProcFuncInfo implementation</param>
+        /// <param name="iStoredProcFuncModelObjectCreator">The IStoredProcFuncModelObjectCreator implementation</param>
+        public DataDictionaryStoredProcFuncDataProvider(IGetDbStoredProcFuncInfo iGetDbStoredProcFuncInfo, IStoredProcFuncModelObjectCreator iStoredProcFuncModelObjectCreator)
+        {
+            if (iGetDbStoredProcFuncInfo == null)
+                throw new ArgumentNullException(nameof(iGetDbStoredProcFuncInfo));
+            if (iStoredProcFuncModelObjectCreator == null)
+                throw new ArgumentNullException(nameof(iStoredProcFuncModelObjectCreator));
+
+            _iGetDbStoredProcFuncInfo = iGetDbStoredProcFuncInfo;
+            _iStoredProcFuncModelObjectCreator = iStoredProcFuncModelObjectCreator;
+        }
+        #endregion ctor
+
+        #region Public methods
         public IEnumerable<StoredProcFuncInfo> Execute()
         {
-            return null;
+            // Get raw data
+            var rawStoredProcFuncData = _iGetDbStoredProcFuncInfo.GetStoredProcFunctionInformation();
+
+            return _iStoredProcFuncModelObjectCreator.TransformRawDataIntoFormattedObjects(rawStoredProcFuncData);
         }
+        #endregion Public methods
     }
 }

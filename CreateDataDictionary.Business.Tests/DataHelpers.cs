@@ -113,5 +113,32 @@ namespace CreateDataDictionary.Business.Tests
             return list;
         }
         #endregion GetSampleTableColumnInfoRaw
+
+        #region GetSampleObjectInfoRaw
+        /// <summary>
+        /// Gets sample data for testing with GetSampleObjectInfoRaw
+        /// </summary>
+        /// <remarks>
+        /// Tests are dependant on specific data, changing data in function may impact tests.
+        /// </remarks>
+        /// <returns>List of StoredProcFuncInfoRaw</returns>
+        public static List<StoredProcFuncInfoRaw> GetSampleObjectInfoRaw()
+        {
+            List<StoredProcFuncInfoRaw> list = new List<StoredProcFuncInfoRaw>();
+
+            list.Add(
+                new StoredProcFuncInfoRaw("ObjectNameNoParams", "Type", null, null, null, null, null)            
+            );
+            list.Add(
+                new StoredProcFuncInfoRaw("ObjectNameParams", "Function", 0, "OutParam", "DateTime", 8, true)
+            );
+            list.Add(
+                new StoredProcFuncInfoRaw("ObjectNameParams", "Function", 1, "NotOutParam", "DateTime", 8, false)
+            );
+
+            return list;
+        }
+        #endregion GetSampleObjectInfoRaw
+
     }
 }

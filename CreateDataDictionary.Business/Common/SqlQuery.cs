@@ -13,7 +13,33 @@ namespace CreateDataDictionary.Business.Common
     public static class SqlQuery
     {
         #region const
-        
+
+        #region Stored Procedure and Function query
+        /// <summary>
+        /// Gets Stored procedure and function information including their parameters.
+        /// </summary>
+        public const string _STORED_PROCEDURE_AND_FUNCTIONS =
+            @"
+SELECT 
+SO.name AS [ObjectName],
+SO.Type_Desc AS [ObjectType],
+P.parameter_id AS [ParameterId],
+isNull(P.name, '') AS [ParameterName],
+isNull(TYPE_NAME(P.user_type_id), '') AS [ParameterDataType],
+convert(int, P.max_length) AS [ParameterMaxLength],
+P.is_output AS [IsOutPutParameter]
+FROM sys.objects AS SO
+LEFT JOIN sys.parameters AS P ON SO.OBJECT_ID = P.OBJECT_ID
+WHERE SO.OBJECT_ID IN ( 
+	SELECT OBJECT_ID 
+	FROM sys.objects
+	WHERE TYPE IN ('P','FN')
+		AND name NOT LIKE 'dt_%'
+)
+ORDER BY Type_Desc, SO.name, P.parameter_id
+            ";
+        #endregion Stored Procedure and Function query
+
         #region Table and column descriptions query
         /// <summary>
         /// This query returns all table names, their descriptions, their columns, their column descriptions, 
