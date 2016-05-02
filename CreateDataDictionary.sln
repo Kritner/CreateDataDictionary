@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDataDictionary.Busine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDataDictionary.Business.Tests", "CreateDataDictionary.Business.Tests\CreateDataDictionary.Business.Tests.csproj", "{58454CF1-63C7-4F2E-AC95-1CA3BB253E12}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8D9BF234-080E-4128-A07B-219B2B250CC9}"
+	ProjectSection(SolutionItems) = preProject
+		docs\01_tableColumnsDescriptions.png = docs\01_tableColumnsDescriptions.png
+		docs\02_MissingDescriptions.png = docs\02_MissingDescriptions.png
+		docs\03_DbObjects.png = docs\03_DbObjects.png
+		docs\sampleDataDictionary_AdventureWorks2012.xlsx = docs\sampleDataDictionary_AdventureWorks2012.xlsx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
