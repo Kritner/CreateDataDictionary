@@ -201,7 +201,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// Ensure when <see cref="IMissingTableDescriptionsSheetCreator"/> not provided, CreateSheetInWorkbook is not called
         /// </summary>
         [TestMethod]
-        public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithNoIIMissingDescriptionsInterfaceNotInvoked()
+        public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithNoIMissingDescriptionsInterfaceNotInvoked()
         {
             // Arrange
             Mock<IMissingTableDescriptionsSheetCreator> mock = new Mock<IMissingTableDescriptionsSheetCreator>();
@@ -220,7 +220,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// Ensure when <see cref="IMissingTableDescriptionsSheetCreator"/> provided, CreateSheetInWorkbook is called
         /// </summary>
         [TestMethod]
-        public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithIIMissingDescriptionsInterfaceInvoked()
+        public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithIMissingDescriptionsInterfaceInvoked()
         {
             // Arrange
             Mock<IMissingTableDescriptionsSheetCreator> mock = new Mock<IMissingTableDescriptionsSheetCreator>();
@@ -233,6 +233,44 @@ namespace CreateDataDictionary.Business.Tests.Services
 
             // Assert
             mock.Verify(v => v.CreateSheetInWorkbook(ref wb, It.IsAny<List<TableInfo>>()), Times.Once, "CreateSheetInWorkbook");
+        }
+
+        /// <summary>
+        /// Ensure when <see cref="IStoredProcFuncSheetCreator"/> not provided, CreateSheetInWorkbook is not called
+        /// </summary>
+        [TestMethod]
+        public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithNoIStoredProcFuncSheetCreatorInterfaceNotInvoked()
+        {
+            // Arrange
+            Mock<IStoredProcFuncSheetCreator> mock = new Mock<IStoredProcFuncSheetCreator>();
+            TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(_mockIMissingDescriptionsSheetCreator.Object, null);
+            XLWorkbook wb = new XLWorkbook();
+            biz.SetWorkBook(wb);
+
+            // Act
+            biz.GenerateReport(_testTableData, _testStoredProcData);
+
+            // Assert
+            mock.Verify(v => v.CreateSheetInWorkbook(ref wb, It.IsAny<List<StoredProcFuncInfo>>()), Times.Never, "CreateSheetInWorkbook");
+        }
+
+        /// <summary>
+        /// Ensure when <see cref="IStoredProcFuncSheetCreator"/> provided, CreateSheetInWorkbook is called
+        /// </summary>
+        [TestMethod]
+        public void DataDictionaryCreateClosedXMLReport_GenerateReport_WithIStoredProcFuncSheetCreatorInterfaceInvoked()
+        {
+            // Arrange
+            Mock<IStoredProcFuncSheetCreator> mock = new Mock<IStoredProcFuncSheetCreator>();
+            TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(_mockIMissingDescriptionsSheetCreator.Object, mock.Object);
+            XLWorkbook wb = new XLWorkbook();
+            biz.SetWorkBook(wb);
+
+            // Act
+            biz.GenerateReport(_testTableData, _testStoredProcData);
+
+            // Assert
+            mock.Verify(v => v.CreateSheetInWorkbook(ref wb, It.IsAny<List<StoredProcFuncInfo>>()), Times.Once, "CreateSheetInWorkbook");
         }
         #endregion Public methods/tests
     }
