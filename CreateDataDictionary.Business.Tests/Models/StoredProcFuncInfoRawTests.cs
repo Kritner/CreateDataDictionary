@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using CreateDataDictionary.Business.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -9,6 +10,7 @@ namespace CreateDataDictionary.Business.Tests.Models
     /// Tests for StoredProcFuncInfoRaw
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class StoredProcFuncInfoRawTests
     {
         #region private
@@ -51,6 +53,44 @@ namespace CreateDataDictionary.Business.Tests.Models
         #endregion Setup
 
         #region Public methods/tests
+        /// <summary>
+        /// <see cref="ArgumentNullException"/> thrown when ObjectName is null
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void StoredProcFuncInfoRaw_ctor_ArgumentNullExceptionThrownEmptyObjectName()
+        {
+            // Arrange / Act / Assert
+            _biz = new StoredProcFuncInfoRaw(
+                null,
+                _objectType,
+                _parameterId,
+                _parameterName,
+                _parameterDataType,
+                _parameterMaxLength,
+                _isOutPutParameter
+            );
+        }
+
+        /// <summary>
+        /// <see cref="ArgumentNullException"/> thrown when ObjectType is null
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void StoredProcFuncInfoRaw_ctor_ArgumentNullExceptionThrownEmptyObjectType()
+        {
+            // Arrange / Act / Assert
+            _biz = new StoredProcFuncInfoRaw(
+                _objectName,
+                null,
+                _parameterId,
+                _parameterName,
+                _parameterDataType,
+                _parameterMaxLength,
+                _isOutPutParameter
+            );
+        }
+
         /// <summary>
         /// Tests that the ctor parameters become class properties
         /// </summary>

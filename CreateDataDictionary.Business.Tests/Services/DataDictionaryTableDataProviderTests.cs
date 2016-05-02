@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using CreateDataDictionary.Business.Interfaces;
 using CreateDataDictionary.Business.Models;
 using CreateDataDictionary.Business.Services;
@@ -13,6 +14,7 @@ namespace CreateDataDictionary.Business.Tests.Services
     /// Tests for DataDictionaryTableDataProvider
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class DataDictionaryTableDataProviderTests
     {
 

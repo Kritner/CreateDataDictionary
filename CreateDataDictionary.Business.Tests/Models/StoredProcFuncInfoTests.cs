@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CreateDataDictionary.Business.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,6 +12,7 @@ namespace CreateDataDictionary.Business.Tests.Models
     /// Tests for StoredProcFuncInfo
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class StoredProcFuncInfoTests
     {
 

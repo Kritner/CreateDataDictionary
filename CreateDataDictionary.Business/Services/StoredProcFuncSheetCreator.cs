@@ -62,8 +62,6 @@ namespace CreateDataDictionary.Business.Services
         {
             worksheet.ColumnsUsed().AdjustToContents();
             worksheet.SheetView.FreezeRows(1);
-            //worksheet.Rows().Height = 30;
-            //worksheet.Column(3).Width = 40;
         }
 
         /// <summary>

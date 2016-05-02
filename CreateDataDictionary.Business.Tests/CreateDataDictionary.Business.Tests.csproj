@@ -86,6 +86,7 @@
     <Compile Include="Services\DataDictionaryStoredProcFuncDataProviderTests.cs" />
     <Compile Include="Services\GetDbStoredProcFuncInfoTests.cs" />
     <Compile Include="Services\StoredProcFuncModelObjectCreatorServiceTests.cs" />
+    <Compile Include="Services\StoredProcFuncSheetCreatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CreateDataDictionary.Business\CreateDataDictionary.Business.csproj">
