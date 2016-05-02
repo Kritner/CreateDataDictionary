@@ -9,7 +9,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for StoredProcFuncSheetCreator
     /// </summary>
@@ -17,7 +16,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class StoredProcFuncSheetCreatorTests
     {
-
         #region private
         private StoredProcFuncSheetCreator _biz;
         private XLWorkbook _workbook;
@@ -124,8 +122,6 @@ namespace CreateDataDictionary.Business.Tests.Services
             Assert.AreEqual(expectedCountNoParameters, countNoParameters, nameof(countNoParameters));
             Assert.AreEqual(expectedCountTwoParameters, countTwoParameters, nameof(countTwoParameters));
         }
-
         #endregion Public methods/tests
-
     }
 }

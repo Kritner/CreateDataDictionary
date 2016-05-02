@@ -9,7 +9,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for MissingDescriptionsSheetCreator
     /// </summary>
@@ -17,7 +16,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class MissingDescriptionsSheetCreatorTests
     {
-
         #region const
         const string _TABLE_DESCRIPTION = "Enter a Table description (Column C)";
         const string _COLUMN_DESCRIPTION = "Enter a Column description (Column C)";
@@ -312,6 +310,5 @@ namespace CreateDataDictionary.Business.Tests.Services
             Assert.AreEqual(expectedColumn, foundColumn, "Expected {0}, found {1} in {2}", expectedColumn, foundColumn, nameof(expectedColumn));
         }
         #endregion Public methods/tests
-
     }
 }

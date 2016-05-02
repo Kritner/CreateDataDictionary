@@ -12,7 +12,6 @@ namespace CreateDataDictionary.Business.Interfaces
     /// </summary>
     public interface IDataDictionaryTableDataProvider
     {
-
         /// <summary>
         /// Get table data
         /// </summary>

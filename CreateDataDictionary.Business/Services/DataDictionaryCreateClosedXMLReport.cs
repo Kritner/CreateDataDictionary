@@ -14,7 +14,6 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class DataDictionaryCreateClosedXMLReport : IDataDictionaryReportGenerator
     {
-        
         #region private
         private IEnumerable<TableInfo> _tableData;
         private IEnumerable<StoredProcFuncInfo> _storedProcFuncData;
@@ -250,14 +249,14 @@ namespace CreateDataDictionary.Business.Services
 
             row.Cell(1, 2).Value = table.TableDescription;
         }
-        
+
         /// <summary>
         /// Row for table last modified row
         /// </summary>
-        /// <param name="workbook"></param>
-        /// <param name="table"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="lastColumn"></param>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="table">The table being printed</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
         private void CreateTableLastModifiedRow(ref IXLWorksheet worksheet, ref TableInfo table, ref int currentRow, int lastColumn)
         {
             IXLRange row = CreateRow(ref worksheet, ref currentRow, lastColumn);
@@ -320,7 +319,7 @@ namespace CreateDataDictionary.Business.Services
         /// Create column row
         /// </summary>
         /// <param name="worksheet">The worksheet</param>
-        /// <param name="table">The current DB table column</param>
+        /// <param name="column">The current DB table column</param>
         /// <param name="currentRow">The current row</param>
         /// <param name="lastColumn">The last column</param>
         private void CreateTableColumnRow(ref IXLWorksheet worksheet, TableColumnInfo column, ref int currentRow, int lastColumn)

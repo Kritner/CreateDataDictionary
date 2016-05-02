@@ -11,7 +11,6 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for GetDbTableColumnInfoService
     /// </summary>
@@ -19,7 +18,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class GetDbTableColumnInfoServiceTests
     {
-
         #region private
         private Mock<IBaseDatabaseConnection> _mockIBaseDatabaseConnection;
         private Mock<IDbConnection> _mockIDbConnection;
@@ -276,6 +274,5 @@ namespace CreateDataDictionary.Business.Tests.Services
             return _mockIDataReader;
         }
         #endregion Private methods
-
     }
 }

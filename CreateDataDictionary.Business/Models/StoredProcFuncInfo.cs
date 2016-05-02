@@ -11,7 +11,6 @@ namespace CreateDataDictionary.Business.Models
     /// </summary>
     public class StoredProcFuncInfo
     {
-
         #region Properties
         /// <summary>
         /// The object's name

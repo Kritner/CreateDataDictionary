@@ -17,6 +17,9 @@ namespace CreateDataDictionary.Business.Services
     {
 
         #region const
+        /// <summary>
+        /// The config file key to use for excluding tables from the data dictionary
+        /// </summary>
         public const string _WEB_CONFIG_KEY_TABLE_EXCLUSION = "CommaDelimitedTableExclusionList";
         #endregion const
 

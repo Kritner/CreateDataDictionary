@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryObjectCreatorService
     /// </summary>
@@ -16,7 +15,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class TableModelObjectCreatorServiceTests
     {
-
         #region private
         List<TableColumnInfoRaw> _testData;
         TableModelObjectCreatorService _biz;

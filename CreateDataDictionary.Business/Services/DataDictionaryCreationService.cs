@@ -12,7 +12,6 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class DataDictionaryCreationService
     {
-
         #region private
         private readonly IDataDictionaryTableDataProvider _iDataDictionaryTableDataProvider;
         private readonly IDataDictionaryStoredProcFuncDataProvider _iDataDictionaryStoredProcFunctionDataProvider;

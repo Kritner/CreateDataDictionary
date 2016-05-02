@@ -10,7 +10,6 @@ using Moq;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryCreationService
     /// </summary>
@@ -111,6 +110,9 @@ namespace CreateDataDictionary.Business.Tests.Services
             _biz.Execute(null);
         }
 
+        /// <summary>
+        /// Tests successful execution
+        /// </summary>
         [TestMethod]
         public void DataDictionaryCreationService_Execute_ExecutesDependencies()
         {

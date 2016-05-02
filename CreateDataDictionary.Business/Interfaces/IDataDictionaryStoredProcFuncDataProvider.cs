@@ -12,6 +12,10 @@ namespace CreateDataDictionary.Business.Interfaces
     /// </summary>
     public interface IDataDictionaryStoredProcFuncDataProvider
     {
+        /// <summary>
+        /// Gets and returns data based on stored procs/functions within the database
+        /// </summary>
+        /// <returns>IEnumerable of StoredProcFuncInfo</returns>
         IEnumerable<StoredProcFuncInfo> Execute();
     }
 }

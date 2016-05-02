@@ -10,7 +10,6 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class DataDictionaryStoredProcFuncDataProvider : IDataDictionaryStoredProcFuncDataProvider
     {
-
         #region private
         private IGetDbStoredProcFuncInfo _iGetDbStoredProcFuncInfo;
         private IStoredProcFuncModelObjectCreator _iStoredProcFuncModelObjectCreator;
@@ -35,6 +34,10 @@ namespace CreateDataDictionary.Business.Services
         #endregion ctor
 
         #region Public methods
+        /// <summary>
+        /// Gets and returns data based on stored procs/functions within the database
+        /// </summary>
+        /// <returns>IEnumerable of StoredProcFuncInfo</returns>
         public IEnumerable<StoredProcFuncInfo> Execute()
         {
             // Get raw data

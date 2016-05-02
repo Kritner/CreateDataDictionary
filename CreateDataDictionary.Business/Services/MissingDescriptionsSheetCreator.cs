@@ -58,8 +58,7 @@ namespace CreateDataDictionary.Business.Services
         /// </summary>
         /// <param name="worksheet">The worksheet to create the </param>
         /// <param name="currentRow">The current row</param>
-        /// <param name="lastColumn">The last column</param>
-        /// <returns></returns>
+        /// <returns>IXLRange</returns>
         private IXLRange CreateRow(ref IXLWorksheet worksheet, ref int currentRow)
         {
             string rangeBegin = XLHelper.GetColumnLetterFromNumber(1) + currentRow;

@@ -14,7 +14,6 @@ namespace CreateDataDictionary.Business.Tests.Models
     [ExcludeFromCodeCoverage]
     public class StoredProcFuncInfoParamsTests
     {
-
         #region private
         private StoredProcFuncInfoParams _biz;
 
@@ -93,6 +92,5 @@ namespace CreateDataDictionary.Business.Tests.Models
             Assert.AreEqual(_isOutParameter, _biz.IsOutParameter, nameof(_biz.IsOutParameter));
         }
         #endregion Public methods/tests
-
     }
 }

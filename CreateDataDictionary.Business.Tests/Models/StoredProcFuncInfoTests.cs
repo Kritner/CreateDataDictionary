@@ -7,7 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Models
 {
-
     /// <summary>
     /// Tests for StoredProcFuncInfo
     /// </summary>
@@ -15,7 +14,6 @@ namespace CreateDataDictionary.Business.Tests.Models
     [ExcludeFromCodeCoverage]
     public class StoredProcFuncInfoTests
     {
-
         #region private
         private StoredProcFuncInfo _biz;
 
@@ -94,6 +92,5 @@ namespace CreateDataDictionary.Business.Tests.Models
             Assert.AreEqual(_parameters.First().ParameterName, _biz.Parameters.First().ParameterName, "ParameterName");
         }
         #endregion Public methods/tests
-
     }
 }

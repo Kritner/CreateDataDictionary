@@ -3,7 +3,6 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Interfaces
 {
-
     /// <summary>
     /// Interface for getting the table, column, and schema information from the database
     /// </summary>

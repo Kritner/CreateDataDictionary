@@ -9,7 +9,6 @@ using Moq;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryTableDataProvider
     /// </summary>
@@ -100,6 +99,9 @@ namespace CreateDataDictionary.Business.Tests.Services
             );
         }
 
+        /// <summary>
+        /// Tests successful execution
+        /// </summary>
         [TestMethod]
         public void DataDictionaryTableDataProvider_Execute_ExecutesDependencies()
         {
@@ -113,6 +115,5 @@ namespace CreateDataDictionary.Business.Tests.Services
             _mockIDataDictionaryObjectCreator.Verify(v => v.TransformRawDataIntoFormattedObjects(It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "TransformRawDataIntoFormattedObjects");
         }
         #endregion Public methods/tests
-
     }
 }

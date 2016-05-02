@@ -7,6 +7,9 @@ using CreateDataDictionary.Business.Services;
 
 namespace CreateDataDictionary.Business.Services
 {
+    /// <summary>
+    /// Create excel sheet describing stored procedures and functions within the database
+    /// </summary>
     public class StoredProcFuncSheetCreator : IStoredProcFuncSheetCreator
     {
         #region const

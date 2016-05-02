@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for StoredProcFuncModelObjectCreatorService
     /// </summary>
@@ -16,7 +15,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class StoredProcFuncModelObjectCreatorServiceTests
     {
-
         #region private
         private List<StoredProcFuncInfoRaw> _testData;
         private StoredProcFuncModelObjectCreatorService _biz;

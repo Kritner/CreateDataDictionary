@@ -12,7 +12,6 @@ using Moq;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryCreateClosedXMLReportTests
     /// </summary>

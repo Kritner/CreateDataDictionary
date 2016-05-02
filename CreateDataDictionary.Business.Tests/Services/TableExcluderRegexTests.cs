@@ -9,7 +9,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryTableExcluderRegex
     /// </summary>
@@ -17,7 +16,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class TableExcluderRegexTests
     {
-
         #region private
         private List<TableColumnInfoRaw> _testData;
         private Regex _testRegex;
@@ -61,6 +59,5 @@ namespace CreateDataDictionary.Business.Tests.Services
             Assert.IsFalse(results.Select(s => s.TableName).Contains(tableShouldBeRemoved), string.Format("{0} should not be contained within list after removal operation", tableShouldBeRemoved));
         }
         #endregion Public methods/tests
-
     }
 }
