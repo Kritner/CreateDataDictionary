@@ -12,7 +12,7 @@ namespace CreateDataDictionary
         static void Main(string[] args)
         {
             Console.WriteLine("Enter a path, filename, and extension (.xlsx) for where to write the data dictionary.  Then press <ENTER>");
-            //string fileName = Console.ReadLine();
+            string fileName = Console.ReadLine();
 
             // Create the report
             DataDictionaryCreationService service = new DataDictionaryCreationService(
@@ -23,13 +23,20 @@ namespace CreateDataDictionary
                     new TableExclusionRulesService(),
                     new TableModelObjectCreatorService()
                 ),
+                new DataDictionaryStoredProcFuncDataProvider(
+                    new GetDbStoredProcFuncInfo(
+                        new BaseDatabaseConnection()
+                    ),
+                    new StoredProcFuncModelObjectCreatorService()
+                ),
                 new DataDictionaryCreateClosedXMLReport(
-                    new MissingDescriptionsSheetCreator()
+                    new MissingDescriptionsSheetCreator(),
+                    new StoredProcFuncSheetCreator()
                 )
             );
 
-            //service.Execute(fileName);
-            service.Execute(@"C:\test.xlsx");
+            service.Execute(fileName);
+            //service.Execute(@"C:\test.xlsx");
 
             Console.WriteLine("");
         }

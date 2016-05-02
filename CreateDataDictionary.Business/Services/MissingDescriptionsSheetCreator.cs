@@ -29,11 +29,11 @@ namespace CreateDataDictionary.Business.Services
         /// </summary>
         /// <param name="workbook">The workbook in which to write</param>
         /// <param name="tables">The table data</param>
-        public void CreateSheetInWorkbook(ref XLWorkbook workbook, List<TableInfo> tables)
+        public void CreateSheetInWorkbook(ref XLWorkbook workbook, IEnumerable<TableInfo> tables)
         {
             if (tables == null)
                 throw new ArgumentNullException(nameof(tables));
-            if (tables.Count == 0)
+            if (tables.Count() == 0)
                 throw new ArgumentException(nameof(tables));
 
             bool anyEmptyTableDescriptions = tables.Any(a => a.TableDescription == string.Empty);
@@ -43,7 +43,7 @@ namespace CreateDataDictionary.Business.Services
             if (!anyEmptyColumnsDescriptions && !anyEmptyColumnsDescriptions)
                 return;
 
-            _data = tables;
+            _data = tables.ToList();
 
             IXLWorksheet sheet = workbook.AddWorksheet("MissingDescriptions");
 
@@ -58,8 +58,7 @@ namespace CreateDataDictionary.Business.Services
         /// </summary>
         /// <param name="worksheet">The worksheet to create the </param>
         /// <param name="currentRow">The current row</param>
-        /// <param name="lastColumn">The last column</param>
-        /// <returns></returns>
+        /// <returns>IXLRange</returns>
         private IXLRange CreateRow(ref IXLWorksheet worksheet, ref int currentRow)
         {
             string rangeBegin = XLHelper.GetColumnLetterFromNumber(1) + currentRow;

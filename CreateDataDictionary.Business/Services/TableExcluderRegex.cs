@@ -9,10 +9,16 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Services
 {
-    public class TableExcluderRegex : IDataDictionaryTableExcluder
+    /// <summary>
+    /// Class is used to exclude tables from the data dictionary as per the <see cref="Regex"/> passed in the constructor
+    /// </summary>
+    public class TableExcluderRegex : ITableExcluder
     {
 
         #region Protected
+        /// <summary>
+        /// Regex used to filter results from the data dictionary
+        /// </summary>
         protected Regex _regex;
         #endregion Protected
 

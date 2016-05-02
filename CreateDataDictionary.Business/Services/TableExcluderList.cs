@@ -13,10 +13,13 @@ namespace CreateDataDictionary.Business.Services
     /// <summary>
     /// Contains a list of tables to exclude from the data dictionary
     /// </summary>
-    public class TableExcluderList : IDataDictionaryTableExcluder
+    public class TableExcluderList : ITableExcluder
     {
 
         #region Protected
+        /// <summary>
+        /// The list of tables that should be excluded from the data dictionary
+        /// </summary>
         protected List<string> _TablesToExclude = new List<string>()
         {
             "aspnet_Paths",

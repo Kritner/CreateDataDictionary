@@ -10,7 +10,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryExclusionRulesService
     /// </summary>
@@ -37,7 +36,7 @@ namespace CreateDataDictionary.Business.Tests.Services
 
         #region Public methods/tests
         /// <summary>
-        /// GetRules returns an <see cref="IEnumerable"/> of <see cref="IDataDictionaryTableExcluder"/>
+        /// GetRules returns an <see cref="IEnumerable"/> of <see cref="ITableExcluder"/>
         /// </summary>
         /// <remarks>
         /// As of writing the test, there are 5 rules that should be applied
@@ -50,7 +49,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             var results = _biz.GetRules();
 
             // Assert
-            Assert.IsInstanceOfType(results, typeof(IEnumerable<IDataDictionaryTableExcluder>), "results type");
+            Assert.IsInstanceOfType(results, typeof(IEnumerable<ITableExcluder>), "results type");
             Assert.AreEqual(expectedRules, results.Count(), "results count");
         }
 
@@ -97,7 +96,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             int originalCount = _testData.Count;
 
             // Act
-            var results = _biz.FilterTablesMeetingRuleCriteria(new List<IDataDictionaryTableExcluder>(), _testData);
+            var results = _biz.FilterTablesMeetingRuleCriteria(new List<ITableExcluder>(), _testData);
 
             // Assert
             Assert.AreEqual(originalCount, results.Count(), "results");

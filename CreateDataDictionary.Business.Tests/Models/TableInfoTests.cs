@@ -6,7 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Models
 {
-
     /// <summary>
     /// Tests for TableInfo
     /// </summary>

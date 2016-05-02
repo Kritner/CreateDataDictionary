@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using CreateDataDictionary.Business.Interfaces;
 using CreateDataDictionary.Business.Models;
 using CreateDataDictionary.Business.Services;
@@ -8,11 +9,11 @@ using Moq;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryTableDataProvider
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class DataDictionaryTableDataProviderTests
     {
 
@@ -98,19 +99,21 @@ namespace CreateDataDictionary.Business.Tests.Services
             );
         }
 
+        /// <summary>
+        /// Tests successful execution
+        /// </summary>
         [TestMethod]
         public void DataDictionaryTableDataProvider_Execute_ExecutesDependencies()
         {
             // Act
-            _biz.GetTableData();
+            _biz.Execute();
 
             // Assert
             _mockIGetDbTableColumnInfo.Verify(v => v.GetTableColumnInformation(), Times.Once, "GetTableColumnInformation");
             _mockIDataDictionaryExclusionRules.Verify(v => v.GetRules(), Times.Once, "GetRules");
-            _mockIDataDictionaryExclusionRules.Verify(v => v.FilterTablesMeetingRuleCriteria(It.IsAny<IEnumerable<IDataDictionaryTableExcluder>>(), It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "FilterTablesMeetingRuleCriteria");
+            _mockIDataDictionaryExclusionRules.Verify(v => v.FilterTablesMeetingRuleCriteria(It.IsAny<IEnumerable<ITableExcluder>>(), It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "FilterTablesMeetingRuleCriteria");
             _mockIDataDictionaryObjectCreator.Verify(v => v.TransformRawDataIntoFormattedObjects(It.IsAny<IEnumerable<TableColumnInfoRaw>>()), Times.Once, "TransformRawDataIntoFormattedObjects");
         }
         #endregion Public methods/tests
-
     }
 }

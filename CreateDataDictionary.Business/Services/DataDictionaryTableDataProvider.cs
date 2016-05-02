@@ -8,9 +8,11 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Services
 {
+    /// <summary>
+    /// Gets database table data from the database, formats it, and returns it.
+    /// </summary>
     public class DataDictionaryTableDataProvider : IDataDictionaryTableDataProvider
     {
-
         #region private
         private readonly IGetDbTableColumnInfo _iGetDbTableColumnInfo;
         private readonly ITableExclusionRules _iDataDictionaryExclusionRules;
@@ -43,7 +45,11 @@ namespace CreateDataDictionary.Business.Services
         }
         #endregion ctor
 
-        public IEnumerable<TableInfo> GetTableData()
+        /// <summary>
+        /// Get table data
+        /// </summary>
+        /// <returns>IEnumerable of TableInfo</returns>
+        public IEnumerable<TableInfo> Execute()
         {
             // Get the data from the db
             var dbRawData = _iGetDbTableColumnInfo.GetTableColumnInformation();

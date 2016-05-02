@@ -4,13 +4,11 @@ using System.Linq;
 
 namespace CreateDataDictionary.Business.Models
 {
-
     /// <summary>
     /// Table information for use in the table portion of the data dictionary
     /// </summary>
     public class TableInfo
     {
-
         #region Properties
         /// <summary>
         /// The table's name

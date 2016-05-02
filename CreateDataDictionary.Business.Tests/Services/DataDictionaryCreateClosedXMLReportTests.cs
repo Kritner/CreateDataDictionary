@@ -12,7 +12,6 @@ using Moq;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryCreateClosedXMLReportTests
     /// </summary>
@@ -36,10 +35,12 @@ namespace CreateDataDictionary.Business.Tests.Services
         #endregion const
 
         #region private
-        List<TableInfo> _testData;
-        DataDictionaryCreateClosedXMLReport _biz;
-        XLWorkbook _testWorkbook;
-        Mock<IMissingTableDescriptionsSheetCreator> _mockIMissingDescriptionsSheetCreator;
+        private List<TableInfo> _testTableData;
+        private List<StoredProcFuncInfo> _testStoredProcData;
+        private DataDictionaryCreateClosedXMLReport _biz;
+        private XLWorkbook _testWorkbook;
+        private Mock<IMissingTableDescriptionsSheetCreator> _mockIMissingDescriptionsSheetCreator;
+        private Mock<IStoredProcFuncSheetCreator> _mockIStoredProcFuncSheetCreator;
         #region test class
         /// <summary>
         /// Used for testing dependency interface calls - needed due to ref XLWorkbook, 
@@ -53,8 +54,9 @@ namespace CreateDataDictionary.Business.Tests.Services
             /// Ctor - call base
             /// </summary>
             /// <param name="iMissingDescriptionsSheetCreator">The IMissingDescriptionsSheetCreator implementation</param>
-            public TestableDataDictionaryCreateClosedXMLReport(IMissingTableDescriptionsSheetCreator iMissingDescriptionsSheetCreator) : 
-                base(iMissingDescriptionsSheetCreator) { }
+            /// <param name="iStoredProcFuncSheetCreator">The IStoredProcFuncSheetCreator implementation</param>
+            public TestableDataDictionaryCreateClosedXMLReport(IMissingTableDescriptionsSheetCreator iMissingDescriptionsSheetCreator, IStoredProcFuncSheetCreator iStoredProcFuncSheetCreator) : 
+                base(iMissingDescriptionsSheetCreator, iStoredProcFuncSheetCreator) { }
 
             /// <summary>
             /// Set the workbook
@@ -85,10 +87,12 @@ namespace CreateDataDictionary.Business.Tests.Services
         public void Setup()
         {
             TableModelObjectCreatorService service = new TableModelObjectCreatorService();
-            _testData = service.TransformRawDataIntoFormattedObjects(DataHelpers.GetSampleTableColumnInfoRaw()).ToList();
+            _testTableData = service.TransformRawDataIntoFormattedObjects(DataHelpers.GetSampleTableColumnInfoRaw()).ToList();
+            _testStoredProcData = new List<StoredProcFuncInfo>();
             _mockIMissingDescriptionsSheetCreator = new Mock<IMissingTableDescriptionsSheetCreator>();
-            _biz = new DataDictionaryCreateClosedXMLReport(_mockIMissingDescriptionsSheetCreator.Object);
-            _testWorkbook = _biz.GenerateReport(_testData);
+            _mockIStoredProcFuncSheetCreator = new Mock<IStoredProcFuncSheetCreator>();
+            _biz = new DataDictionaryCreateClosedXMLReport(_mockIMissingDescriptionsSheetCreator.Object, _mockIStoredProcFuncSheetCreator.Object);
+            _testWorkbook = _biz.GenerateReport(_testTableData, _testStoredProcData);
         }
         #endregion Setup
 
@@ -101,7 +105,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         public void DataDictionaryCreateClosedXMLReport_GenerateReport_ArgumentNullExceptionThrownDataDictionaryDataNull()
         {
             // Arrange / Act / Assert
-            var results = _biz.GenerateReport(null);
+            var results = _biz.GenerateReport(null, _testStoredProcData);
         }
 
         /// <summary>
@@ -112,7 +116,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         public void DataDictionaryCreateClosedXMLReport_GenerateReport_ArgumentExceptionThrownDataDictionaryDataZeroRecords()
         {
             // Arrange / Act / Assert
-            var results = _biz.GenerateReport(new List<TableInfo>());
+            var results = _biz.GenerateReport(new List<TableInfo>(), _testStoredProcData);
         }
 
         /// <summary>
@@ -123,7 +127,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         public void DataDictionaryCreateClosedXMLReport_GenerateReport_SheetForEveryTable()
         {
             // Assert
-            foreach(TableInfo table in _testData)
+            foreach(TableInfo table in _testTableData)
             {
                 IXLWorksheet worksheet;
                 Assert.IsTrue(_testWorkbook.TryGetWorksheet(table.TableName, out worksheet));
@@ -201,12 +205,12 @@ namespace CreateDataDictionary.Business.Tests.Services
         {
             // Arrange
             Mock<IMissingTableDescriptionsSheetCreator> mock = new Mock<IMissingTableDescriptionsSheetCreator>();
-            TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(null);
+            TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(null, _mockIStoredProcFuncSheetCreator.Object);
             XLWorkbook wb = new XLWorkbook();
             biz.SetWorkBook(wb);
 
             // Act
-            biz.GenerateReport(_testData);
+            biz.GenerateReport(_testTableData, _testStoredProcData);
 
             // Assert
             mock.Verify(v => v.CreateSheetInWorkbook(ref wb, It.IsAny<List<TableInfo>>()), Times.Never, "CreateSheetInWorkbook");
@@ -220,12 +224,12 @@ namespace CreateDataDictionary.Business.Tests.Services
         {
             // Arrange
             Mock<IMissingTableDescriptionsSheetCreator> mock = new Mock<IMissingTableDescriptionsSheetCreator>();
-            TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(mock.Object);
+            TestableDataDictionaryCreateClosedXMLReport biz = new TestableDataDictionaryCreateClosedXMLReport(mock.Object, _mockIStoredProcFuncSheetCreator.Object);
             XLWorkbook wb = new XLWorkbook();
             biz.SetWorkBook(wb);
 
             // Act
-            biz.GenerateReport(_testData);
+            biz.GenerateReport(_testTableData, _testStoredProcData);
 
             // Assert
             mock.Verify(v => v.CreateSheetInWorkbook(ref wb, It.IsAny<List<TableInfo>>()), Times.Once, "CreateSheetInWorkbook");

@@ -14,6 +14,6 @@ namespace CreateDataDictionary.Business.Interfaces
         /// </summary>
         /// <param name="workbook">The workbook to create the sheet within</param>
         /// <param name="tables">The tables to parse for missing information</param>
-        void CreateSheetInWorkbook(ref XLWorkbook workbook, List<TableInfo> tables);
+        void CreateSheetInWorkbook(ref XLWorkbook workbook, IEnumerable<TableInfo> tables);
     }
 }

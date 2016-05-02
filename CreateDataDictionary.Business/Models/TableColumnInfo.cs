@@ -2,7 +2,6 @@
 
 namespace CreateDataDictionary.Business.Models
 {
-
     /// <summary>
     /// Table information for use in the column portion of the data dictionary
     /// </summary>

@@ -9,15 +9,15 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CreateDataDictionary.Business.Tests.Services
 {
     /// <summary>
-    /// Tests for DataDictionaryObjectCreatorService
+    /// Tests for StoredProcFuncModelObjectCreatorService
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
-    public class TableModelObjectCreatorServiceTests
+    public class StoredProcFuncModelObjectCreatorServiceTests
     {
         #region private
-        List<TableColumnInfoRaw> _testData;
-        TableModelObjectCreatorService _biz;
+        private List<StoredProcFuncInfoRaw> _testData;
+        private StoredProcFuncModelObjectCreatorService _biz;
         #endregion private
 
         #region Setup
@@ -27,10 +27,9 @@ namespace CreateDataDictionary.Business.Tests.Services
         [TestInitialize]
         public void Setup()
         {
-            _testData = DataHelpers.GetSampleTableColumnInfoRaw();
-            _biz = new TableModelObjectCreatorService();
+            _testData = DataHelpers.GetSampleObjectInfoRaw();
+            _biz = new StoredProcFuncModelObjectCreatorService();
         }
-
         #endregion Setup
 
         #region Public methods/tests
@@ -39,7 +38,7 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void TableModelObjectCreatorService_TransformRawDataIntoFormattedObjects_ArgumentNullExceptionThrownWhenNullRawData()
+        public void StoredProcFuncModelObjectCreatorService_TransformRawDataIntoFormattedObjects_ArgumentNullExceptionThrownWhenNullRawData()
         {
             // Arrange / Act / Assert
             var results = _biz.TransformRawDataIntoFormattedObjects(null);
@@ -49,13 +48,13 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// When there is no data within rawData, ensure no exception is thrown
         /// </summary>
         [TestMethod]
-        public void TableModelObjectCreatorService_TransformRawDataIntoFormattedObjects_NoRawDataDoesNotThrownException()
+        public void StoredProcFuncModelObjectCreatorService_TransformRawDataIntoFormattedObjects_NoRawDataDoesNotThrownException()
         {
             // Arrange
             int expectedResultsCount = 0;
 
             // Act
-            var results = _biz.TransformRawDataIntoFormattedObjects(new List<TableColumnInfoRaw>());
+            var results = _biz.TransformRawDataIntoFormattedObjects(new List<StoredProcFuncInfoRaw>());
 
             // Assert
             Assert.AreEqual(expectedResultsCount, results.Count());
@@ -65,11 +64,11 @@ namespace CreateDataDictionary.Business.Tests.Services
         /// Tests successful transformation using a variety of data scenarios
         /// </summary>
         [TestMethod]
-        public void TableModelObjectCreatorService_TransformRawDataIntoFormattedObjects_Success()
+        public void StoredProcFuncModelObjectCreatorService_TransformRawDataIntoFormattedObjects_Success()
         {
             // Arrange
-            int expectedRawDataCount = 7;
-            int expectedResultsTableCount = 6;
+            int expectedRawDataCount = 3;
+            int expectedResultsTableCount = 2;
 
             // Act
             var results = _biz.TransformRawDataIntoFormattedObjects(_testData);
@@ -79,8 +78,8 @@ namespace CreateDataDictionary.Business.Tests.Services
                 Assert.Fail(string.Format("Expected {0} records in {1}", expectedRawDataCount, nameof(_testData)));
             if (results.Count() != expectedResultsTableCount)
                 Assert.Fail(string.Format("Expected {0} records in {1}", expectedResultsTableCount, nameof(results)));
-            Assert.AreEqual(1, results.First(f => f.TableName == "SampleTableShouldNotBeRemoved").TableColumns.Count, "SampleTableShouldNotBeRemoved columns count");
-            Assert.AreEqual(2, results.First(f => f.TableName == "TableWithDescNoColumnDesc").TableColumns.Count, "TableWithDescNoColumnDesc columns count");
+            Assert.AreEqual(0, results.First(f => f.ObjectName == "ObjectNameNoParams").Parameters.Count, "ObjectNameNoParams parameter count");
+            Assert.AreEqual(2, results.First(f => f.ObjectName == "ObjectNameParams").Parameters.Count, "ObjectNameParams parameter count");
         }
         #endregion Public methods/tests
     }

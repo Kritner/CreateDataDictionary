@@ -15,6 +15,9 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class BaseDatabaseConnection : IBaseDatabaseConnection
     {
+        /// <summary>
+        /// The connection string name to use for database connections
+        /// </summary>
         public const string _CONNECTION_STRING_NAME = "DefaultConnectionString";
 
         #region Properties

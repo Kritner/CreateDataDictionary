@@ -7,13 +7,11 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Interfaces
 {
-
     /// <summary>
     /// Interface a means of excluding tables from the data dictionary
     /// </summary>
-    public interface IDataDictionaryTableExcluder
+    public interface ITableExcluder
     {
-
         /// <summary>
         /// Take in the <see cref="IEnumerable{T}"/> of <see cref="TableColumnInfoRaw"/>,
         /// entries based on implementation, and return.

@@ -14,11 +14,12 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class DataDictionaryCreateClosedXMLReport : IDataDictionaryReportGenerator
     {
-        
         #region private
-        private List<TableInfo> _data;
+        private IEnumerable<TableInfo> _tableData;
+        private IEnumerable<StoredProcFuncInfo> _storedProcFuncData;
         private XLColor _headingColor = XLColor.FromArgb(153, 204, 255);
         private readonly IMissingTableDescriptionsSheetCreator _iMissingDescriptionsSheetCreator;
+        private readonly IStoredProcFuncSheetCreator _iStoredProcFuncSheetCreator;
         #endregion private
 
         #region ctor
@@ -26,9 +27,11 @@ namespace CreateDataDictionary.Business.Services
         /// Constructor - takes in dependencies
         /// </summary>
         /// <param name="iMissingDescriptionsSheetCreator">The IMissingDescriptionsSheetCreator implementation</param>
-        public DataDictionaryCreateClosedXMLReport(IMissingTableDescriptionsSheetCreator iMissingDescriptionsSheetCreator)
+        /// <param name="iStoredProcFuncSheetCreator">The IStoredProcFuncSheetCreator implementation</param>
+        public DataDictionaryCreateClosedXMLReport(IMissingTableDescriptionsSheetCreator iMissingDescriptionsSheetCreator, IStoredProcFuncSheetCreator iStoredProcFuncSheetCreator)
         {
             _iMissingDescriptionsSheetCreator = iMissingDescriptionsSheetCreator;
+            _iStoredProcFuncSheetCreator = iStoredProcFuncSheetCreator;
         }
         #endregion ctor
 
@@ -36,22 +39,28 @@ namespace CreateDataDictionary.Business.Services
         /// <summary>
         /// Generate the report
         /// </summary>
-        /// <param name="dataDictionaryData">The data to use for the creation of the report</param>
+        /// <param name="dataDictionaryTableData">The table data to use for the creation of the report</param>
+        /// <param name="dataDictionaryStoredProcFuncData">The stored procedure and function data to use in the report.</param>
         /// <returns>The report</returns>
-        public XLWorkbook GenerateReport(IEnumerable<TableInfo> dataDictionaryData)
+        public XLWorkbook GenerateReport(IEnumerable<TableInfo> dataDictionaryTableData, IEnumerable<StoredProcFuncInfo> dataDictionaryStoredProcFuncData)
         {
-            if (dataDictionaryData == null)
-                throw new ArgumentNullException(nameof(dataDictionaryData));
-            if (dataDictionaryData.Count() == 0)
-                throw new ArgumentException(nameof(dataDictionaryData));
+            if (dataDictionaryTableData == null)
+                throw new ArgumentNullException(nameof(dataDictionaryTableData));
+            if (dataDictionaryTableData.Count() == 0)
+                throw new ArgumentException(nameof(dataDictionaryTableData));
 
-            _data = dataDictionaryData.ToList();
+            _tableData = dataDictionaryTableData.ToList();
+
+            _tableData = dataDictionaryTableData;
+            _storedProcFuncData = dataDictionaryStoredProcFuncData;
 
             XLWorkbook workbook = CreateWorkbook();
 
             // Generate the missing descriptions sheet within the workbook, if an implementation is provided
             if (_iMissingDescriptionsSheetCreator != null)
-                _iMissingDescriptionsSheetCreator.CreateSheetInWorkbook(ref workbook, _data);
+                _iMissingDescriptionsSheetCreator.CreateSheetInWorkbook(ref workbook, _tableData);
+            if (_iStoredProcFuncSheetCreator != null)
+                _iStoredProcFuncSheetCreator.CreateSheetInWorkbook(ref workbook, _storedProcFuncData);
 
             workbook = CreateWorksheetContents(workbook);
 
@@ -137,7 +146,7 @@ namespace CreateDataDictionary.Business.Services
         /// <returns>The workbook</returns>
         private XLWorkbook CreateWorksheetContents(XLWorkbook workbook)
         {
-            _data.ForEach(table => CreateSheetForTable(ref workbook, table));
+            _tableData.ForEach(table => CreateSheetForTable(ref workbook, table));
 
             return workbook;
         }
@@ -240,14 +249,14 @@ namespace CreateDataDictionary.Business.Services
 
             row.Cell(1, 2).Value = table.TableDescription;
         }
-        
+
         /// <summary>
         /// Row for table last modified row
         /// </summary>
-        /// <param name="workbook"></param>
-        /// <param name="table"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="lastColumn"></param>
+        /// <param name="worksheet">The worksheet</param>
+        /// <param name="table">The table being printed</param>
+        /// <param name="currentRow">The current row</param>
+        /// <param name="lastColumn">The last column</param>
         private void CreateTableLastModifiedRow(ref IXLWorksheet worksheet, ref TableInfo table, ref int currentRow, int lastColumn)
         {
             IXLRange row = CreateRow(ref worksheet, ref currentRow, lastColumn);
@@ -310,7 +319,7 @@ namespace CreateDataDictionary.Business.Services
         /// Create column row
         /// </summary>
         /// <param name="worksheet">The worksheet</param>
-        /// <param name="table">The current DB table column</param>
+        /// <param name="column">The current DB table column</param>
         /// <param name="currentRow">The current row</param>
         /// <param name="lastColumn">The last column</param>
         private void CreateTableColumnRow(ref IXLWorksheet worksheet, TableColumnInfo column, ref int currentRow, int lastColumn)

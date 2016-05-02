@@ -12,12 +12,11 @@ namespace CreateDataDictionary.Business.Interfaces
     /// </summary>
     public interface IDataDictionaryTableDataProvider
     {
-
         /// <summary>
         /// Get table data
         /// </summary>
         /// <returns>IEnumerable of TableInfo</returns>
-        IEnumerable<TableInfo> GetTableData();
+        IEnumerable<TableInfo> Execute();
 
     }
 }

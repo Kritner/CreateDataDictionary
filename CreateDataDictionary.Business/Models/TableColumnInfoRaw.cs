@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace CreateDataDictionary.Business.Models
 {
-    
     /// <summary>
     /// Represents the raw information from the DB regarding db table/column/schema information
     /// </summary>
     public class TableColumnInfoRaw
     {
-
         #region Properties
         /// <summary>
         /// The table's name - should always be provided

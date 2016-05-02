@@ -3,7 +3,6 @@ using CreateDataDictionary.Business.Models;
 
 namespace CreateDataDictionary.Business.Interfaces
 {
-
     /// <summary>
     /// Creates the DataDictionary objects based on the raw data
     /// </summary>

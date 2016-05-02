@@ -17,6 +17,9 @@ namespace CreateDataDictionary.Business.Services
     {
 
         #region const
+        /// <summary>
+        /// The config file key to use for excluding tables from the data dictionary
+        /// </summary>
         public const string _WEB_CONFIG_KEY_TABLE_EXCLUSION = "CommaDelimitedTableExclusionList";
         #endregion const
 
@@ -38,9 +41,9 @@ namespace CreateDataDictionary.Business.Services
         /// Get the rules for data dictionary table exclusion.
         /// </summary>
         /// <returns>IEnumerable of IDataDictionaryTableExcluder</returns>
-        public IEnumerable<IDataDictionaryTableExcluder> GetRules()
+        public IEnumerable<ITableExcluder> GetRules()
         {
-            List<IDataDictionaryTableExcluder> list = new List<IDataDictionaryTableExcluder>();
+            List<ITableExcluder> list = new List<ITableExcluder>();
             list.Add(new TableExcluderList(_tablesToExclude));
             list.Add(new TableExcluderRegex(new Regex(@"bak", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
             list.Add(new TableExcluderRegex(new Regex(@"bkup", RegexOptions.Compiled | RegexOptions.IgnoreCase)));
@@ -56,7 +59,7 @@ namespace CreateDataDictionary.Business.Services
         /// <param name="rules">The rules to use to filter</param>
         /// <param name="preFilterTables">The tables to filter</param>
         /// <returns>The filtered tables</returns>
-        public IEnumerable<TableColumnInfoRaw> FilterTablesMeetingRuleCriteria(IEnumerable<IDataDictionaryTableExcluder> rules, IEnumerable<TableColumnInfoRaw> preFilterTables)
+        public IEnumerable<TableColumnInfoRaw> FilterTablesMeetingRuleCriteria(IEnumerable<ITableExcluder> rules, IEnumerable<TableColumnInfoRaw> preFilterTables)
         {
             if (rules == null)
                 throw new ArgumentNullException(nameof(rules));
@@ -69,7 +72,7 @@ namespace CreateDataDictionary.Business.Services
             List<TableColumnInfoRaw> list = new List<TableColumnInfoRaw>();
             list.AddRange(preFilterTables);
 
-            foreach (IDataDictionaryTableExcluder rule in rules)
+            foreach (ITableExcluder rule in rules)
                 list = rule.RemoveTables(list).ToList();
 
             return list;

@@ -10,7 +10,6 @@ using Moq;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryCreationService
     /// </summary>
@@ -20,6 +19,7 @@ namespace CreateDataDictionary.Business.Tests.Services
     {
         #region private
         private Mock<IDataDictionaryTableDataProvider> _mockIDataDictionaryTableDataProvider;
+        private Mock<IDataDictionaryStoredProcFuncDataProvider> _mockIDataDictionaryStoredProcFunctionDataProvider;
         private Mock<IDataDictionaryReportGenerator> _mockIDataDictionaryReportGenerator;
         private DataDictionaryCreationService _biz;
         #endregion private
@@ -32,10 +32,12 @@ namespace CreateDataDictionary.Business.Tests.Services
         public void Setup()
         {
             _mockIDataDictionaryTableDataProvider = new Mock<IDataDictionaryTableDataProvider>();
+            _mockIDataDictionaryStoredProcFunctionDataProvider = new Mock<IDataDictionaryStoredProcFuncDataProvider>();
             _mockIDataDictionaryReportGenerator = new Mock<IDataDictionaryReportGenerator>();
 
             _biz = new DataDictionaryCreationService(
                 _mockIDataDictionaryTableDataProvider.Object,
+                _mockIDataDictionaryStoredProcFunctionDataProvider.Object,
                 _mockIDataDictionaryReportGenerator.Object
             );
         }
@@ -62,10 +64,26 @@ namespace CreateDataDictionary.Business.Tests.Services
             // Arrange / Act / Assert
             _biz = new DataDictionaryCreationService(
                 null,
+                _mockIDataDictionaryStoredProcFunctionDataProvider.Object,
                 _mockIDataDictionaryReportGenerator.Object
             );
         }
-        
+
+        /// <summary>
+        /// <see cref="ArgumentNullException"/> thrown when no provided <see cref="IDataDictionaryStoredProcFuncDataProvider"/>
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void DataDictionaryCreationService_ctor_ArgumentNullExceptionWithNoIDataDictionaryStoredProcFunctionDataProvider()
+        {
+            // Arrange / Act / Assert
+            _biz = new DataDictionaryCreationService(
+                _mockIDataDictionaryTableDataProvider.Object,
+                null,
+                _mockIDataDictionaryReportGenerator.Object
+            );
+        }
+
         /// <summary>
         /// <see cref="ArgumentNullException"/> thrown when no provided <see cref="IDataDictionaryReportGenerator"/>
         /// </summary>
@@ -76,6 +94,7 @@ namespace CreateDataDictionary.Business.Tests.Services
             // Arrange / Act / Assert
             _biz = new DataDictionaryCreationService(
                 _mockIDataDictionaryTableDataProvider.Object,
+                _mockIDataDictionaryStoredProcFunctionDataProvider.Object,
                 null
             );
         }
@@ -91,6 +110,9 @@ namespace CreateDataDictionary.Business.Tests.Services
             _biz.Execute(null);
         }
 
+        /// <summary>
+        /// Tests successful execution
+        /// </summary>
         [TestMethod]
         public void DataDictionaryCreationService_Execute_ExecutesDependencies()
         {
@@ -98,8 +120,8 @@ namespace CreateDataDictionary.Business.Tests.Services
             _biz.Execute("FileName");
 
             // Assert
-            _mockIDataDictionaryTableDataProvider.Verify(v => v.GetTableData(), Times.Once, "GetTableData");
-            _mockIDataDictionaryReportGenerator.Verify(v => v.GenerateReport(It.IsAny<IEnumerable<TableInfo>>()), Times.Once, "GenerateReport");
+            _mockIDataDictionaryTableDataProvider.Verify(v => v.Execute(), Times.Once, "GetTableData");
+            _mockIDataDictionaryReportGenerator.Verify(v => v.GenerateReport(It.IsAny<IEnumerable<TableInfo>>(), It.IsAny<IEnumerable<StoredProcFuncInfo>>()), Times.Once, "GenerateReport");
             _mockIDataDictionaryReportGenerator.Verify(v => v.SaveReport(It.IsAny<XLWorkbook>(), It.IsAny<string>()), Times.Once, "SaveReport");
         }
         #endregion Public methods/tests

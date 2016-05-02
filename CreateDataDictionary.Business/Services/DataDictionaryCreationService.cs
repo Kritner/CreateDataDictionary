@@ -12,9 +12,9 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class DataDictionaryCreationService
     {
-
         #region private
         private readonly IDataDictionaryTableDataProvider _iDataDictionaryTableDataProvider;
+        private readonly IDataDictionaryStoredProcFuncDataProvider _iDataDictionaryStoredProcFunctionDataProvider;
         private readonly IDataDictionaryReportGenerator _iDataDictionaryReportGenerator;
         #endregion private
 
@@ -23,18 +23,23 @@ namespace CreateDataDictionary.Business.Services
         /// Constructor - takes in dependencies
         /// </summary>
         /// <param name="iDataDictionaryTableDataProvider">The IDataDictionaryTableDataProvider dependency</param>
+        /// <param name="iDataDictionaryStoredProcFunctionDataProvider">The IDataDictionaryStoredProcFunctionDataProvider dependency</param>
         /// <param name="iDataDictionaryReportGenerator">The IDataDictionaryReportGenerator dependency</param>
         public DataDictionaryCreationService(
             IDataDictionaryTableDataProvider iDataDictionaryTableDataProvider,
+            IDataDictionaryStoredProcFuncDataProvider iDataDictionaryStoredProcFunctionDataProvider,
             IDataDictionaryReportGenerator iDataDictionaryReportGenerator
         )
         {
             if (iDataDictionaryTableDataProvider == null)
                 throw new ArgumentNullException(nameof(iDataDictionaryTableDataProvider));
+            if (iDataDictionaryStoredProcFunctionDataProvider == null)
+                throw new ArgumentNullException(nameof(iDataDictionaryStoredProcFunctionDataProvider));
             if (iDataDictionaryReportGenerator == null)
                 throw new ArgumentNullException(nameof(iDataDictionaryReportGenerator));
 
             _iDataDictionaryTableDataProvider = iDataDictionaryTableDataProvider;
+            _iDataDictionaryStoredProcFunctionDataProvider = iDataDictionaryStoredProcFunctionDataProvider;
             _iDataDictionaryReportGenerator = iDataDictionaryReportGenerator;
         }
         #endregion ctor
@@ -50,10 +55,13 @@ namespace CreateDataDictionary.Business.Services
                 throw new ArgumentNullException(nameof(filename));
 
             // Get table data
-            var transformedData = _iDataDictionaryTableDataProvider.GetTableData();
+            var transformedTableData = _iDataDictionaryTableDataProvider.Execute();
+
+            // Get Stored Proc and Function data
+            var transformedStoredProcFuncData = _iDataDictionaryStoredProcFunctionDataProvider.Execute();
 
             // Generate the report
-            var results = _iDataDictionaryReportGenerator.GenerateReport(transformedData);
+            var results = _iDataDictionaryReportGenerator.GenerateReport(transformedTableData, transformedStoredProcFuncData);
             _iDataDictionaryReportGenerator.SaveReport(results, filename);
         }
         #endregion Public methods

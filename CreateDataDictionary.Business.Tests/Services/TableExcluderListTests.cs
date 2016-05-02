@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for DataDictionaryTableExcluderList
     /// </summary>

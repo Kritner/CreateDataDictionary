@@ -6,7 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Models
 {
-
     /// <summary>
     /// Tests for TableColumnInfo
     /// </summary>
@@ -14,7 +13,6 @@ namespace CreateDataDictionary.Business.Tests.Models
     [ExcludeFromCodeCoverage]
     public class TableColumnInfoTests
     {
-
         #region private
         private string _columnName;
         private string _columnDescription;
@@ -197,6 +195,5 @@ namespace CreateDataDictionary.Business.Tests.Models
             Assert.AreEqual(false, _biz.PartOfKeyFormatted, nameof(_biz.PartOfKeyFormatted));
         }
         #endregion Public methods/tests
-
     }
 }

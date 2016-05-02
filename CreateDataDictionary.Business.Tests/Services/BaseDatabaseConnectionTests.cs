@@ -7,7 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CreateDataDictionary.Business.Tests.Services
 {
-
     /// <summary>
     /// Tests for BaseDatabaseConnection
     /// </summary>
@@ -15,7 +14,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class BaseDatabaseConnectionTests
     {
-
         #region private
         private BaseDatabaseConnection _biz;
         #endregion private
@@ -32,6 +30,9 @@ namespace CreateDataDictionary.Business.Tests.Services
         #endregion Setup
 
         #region Public methods/tests
+        /// <summary>
+        /// Ensure class returns a valid <see cref="SqlConnection"/>
+        /// </summary>
         [TestMethod]
         public void BaseDatabaseConnection_GetDatabaseConnection_ReturnsIDbConnection()
         {
