@@ -218,6 +218,5 @@ namespace CreateDataDictionary.Business.Services
             row.Cell(1, sqlScriptColumn).Style.Font.SetFontColor(XLColor.White);
         }
         #endregion Private methods
-
     }
 }

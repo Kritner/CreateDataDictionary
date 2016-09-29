@@ -16,7 +16,6 @@ namespace CreateDataDictionary.Business.Tests.Services
     [ExcludeFromCodeCoverage]
     public class DataDictionaryTableDataProviderTests
     {
-
         #region private
         private Mock<IGetDbTableColumnInfo> _mockIGetDbTableColumnInfo;
         private Mock<ITableExclusionRules> _mockIDataDictionaryExclusionRules;

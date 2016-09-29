@@ -12,6 +12,7 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class StoredProcFuncModelObjectCreatorService : IStoredProcFuncModelObjectCreator
     {
+        #region Public methods
         /// <summary>
         /// Transforms <see cref="StoredProcFuncInfoRaw"/> into <see cref="StoredProcFuncInfo"/>
         /// </summary>
@@ -48,5 +49,6 @@ namespace CreateDataDictionary.Business.Services
 
             return list;
         }
+        #endregion Public methods
     }
 }

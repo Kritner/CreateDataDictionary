@@ -66,6 +66,5 @@ namespace CreateDataDictionary.Business.Models
             IsOutParameter = isOutParameter;
         }
         #endregion ctor
-
     }
 }

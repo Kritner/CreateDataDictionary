@@ -15,7 +15,6 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class GetDbTableColumnInfoService : IGetDbTableColumnInfo
     {
-
         #region Private
         private readonly IBaseDatabaseConnection _iBaseDatabaseConnection;
         #endregion Private
@@ -77,6 +76,5 @@ namespace CreateDataDictionary.Business.Services
             return list;
         }
         #endregion Public methods
-
     }
 }

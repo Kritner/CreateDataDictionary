@@ -17,6 +17,5 @@ namespace CreateDataDictionary.Business.Interfaces
         /// </summary>
         /// <returns>IEnumerable of TableInfo</returns>
         IEnumerable<TableInfo> Execute();
-
     }
 }

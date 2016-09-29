@@ -15,7 +15,6 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class TableExclusionRulesService : ITableExclusionRules
     {
-
         #region const
         /// <summary>
         /// The config file key to use for excluding tables from the data dictionary
@@ -37,6 +36,7 @@ namespace CreateDataDictionary.Business.Services
         }
         #endregion ctor
 
+        #region Public methods
         /// <summary>
         /// Get the rules for data dictionary table exclusion.
         /// </summary>
@@ -77,5 +77,6 @@ namespace CreateDataDictionary.Business.Services
 
             return list;
         }
+        #endregion Public methods
     }
 }

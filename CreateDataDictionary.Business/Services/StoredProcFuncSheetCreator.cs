@@ -20,6 +20,7 @@ namespace CreateDataDictionary.Business.Services
         private List<StoredProcFuncInfo> _data;
         #endregion private
 
+        #region Public methods
         /// <summary>
         /// Create sheet describing Stored Procedures and functions
         /// </summary>
@@ -39,6 +40,7 @@ namespace CreateDataDictionary.Business.Services
             CreateTableRowsForObjects(ref sheet);
             FormatWorksheet(ref sheet);
         }
+        #endregion Public methods
 
         #region private helpers
         /// <summary>

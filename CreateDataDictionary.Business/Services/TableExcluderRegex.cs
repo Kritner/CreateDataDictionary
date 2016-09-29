@@ -14,7 +14,6 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class TableExcluderRegex : ITableExcluder
     {
-
         #region Protected
         /// <summary>
         /// Regex used to filter results from the data dictionary
@@ -33,6 +32,7 @@ namespace CreateDataDictionary.Business.Services
         }
         #endregion ctor
 
+        #region Public methods
         /// <summary>
         /// Removes tables based on the regex provided in the constructor
         /// </summary>
@@ -45,5 +45,6 @@ namespace CreateDataDictionary.Business.Services
 
             return list;
         }
+        #endregion Public methods
     }
 }

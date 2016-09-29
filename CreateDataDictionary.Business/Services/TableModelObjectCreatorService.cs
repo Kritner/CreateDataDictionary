@@ -14,7 +14,7 @@ namespace CreateDataDictionary.Business.Services
     /// </summary>
     public class TableModelObjectCreatorService : ITableModelObjectCreator
     {
-
+        #region Public methods
         /// <summary>
         /// Transform <see cref="TableColumnInfoRaw"/> into <see cref="TableInfo"/>
         /// </summary>
@@ -52,6 +52,6 @@ namespace CreateDataDictionary.Business.Services
 
             return list;
         }
-
+        #endregion Public methods
     }
 }
