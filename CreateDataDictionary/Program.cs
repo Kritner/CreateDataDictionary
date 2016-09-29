@@ -36,7 +36,6 @@ namespace CreateDataDictionary
             );
 
             service.Execute(fileName);
-            //service.Execute(@"C:\test.xlsx");
 
             Console.WriteLine("");
         }
